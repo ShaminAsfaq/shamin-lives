@@ -85,7 +85,7 @@ class Spotify extends React.Component {
                     this.state.response.data.item.album &&
                     this.state.response.data.item.album.images[1] &&
                     this.state.response.data.item.album.images[1].url ?
-                    <div className="ui card spotify-card" style={{
+                    <div className="ui link card spotify-card" style={{
                             position: 'fixed',
                             bottom: '1.5rem',
                             justifyContent: 'center',

@@ -6,6 +6,7 @@ import React from 'react';
 import axios from 'axios';
 
 import analyze from 'rgbaster';
+import prettyMilliseconds from 'pretty-ms';
 
 import '../styles/Spotify.css';
 
@@ -79,7 +80,9 @@ class Spotify extends React.Component {
                 {
                     this.state.response &&
                     this.state.response.data &&
+                    this.state.response.data.progress_ms &&
                     this.state.response.data.item &&
+                    this.state.response.data.item.duration_ms &&
                     this.state.response.data.item.name &&
                     this.state.response.data.item.artists[0] &&
                     this.state.response.data.item.artists[0].name &&
@@ -97,8 +100,6 @@ class Spotify extends React.Component {
                         <div 
                             className="content" 
                             style={{
-                                    //NOW: 198,207,214
-                                    //PREV: 72.79.79
                                     background: `linear-gradient(${this.state.lowerGradiant},${this.state.upperGradiant}), url(${this.state.response.data.item.album.images[1].url})`,
                                     backgroundSize: 'inherit',
                                     backgroundPosition: 'top',
@@ -107,7 +108,14 @@ class Spotify extends React.Component {
                                     paddingRight: 0,
                             }}
                         >
-                            <div className="center aligned header" style={{ paddingTop: '22%' }}>
+                            <div className="center aligned header" style={{ paddingTop: '5%' }}>
+                                <h1 className="ui header" style={{ fontSize: '40px', color: `${this.state.dominant}`, filter: 'invert(100%)' }}>
+                                    { prettyMilliseconds(this.state.response.data.progress_ms, {secondsDecimalDigits: 0, colonNotation: true}) } 
+                                    / 
+                                    { prettyMilliseconds(this.state.response.data.item.duration_ms, {secondsDecimalDigits: 0, colonNotation: true}) }
+                                </h1>
+                            </div>
+                            <div className="center aligned header" style={{ paddingTop: '3%' }}>
                                 <h2 className="ui header" style={{ fontSize: '20px', color: `${this.state.dominant}`, filter: 'invert(100%)' }}>
                                     { 
                                         this.state.response.data.item.name.length > 25 ? 
@@ -123,10 +131,17 @@ class Spotify extends React.Component {
                             </div>
                         </div>
                         <div className="extra content spotify-card-div-bottom" id="spotify-card-div-bottom" style={{ backgroundColor: `${this.state.dominant}` }}>
-                            <div className="center aligned author" style={{ color: `${this.state.dominant}`, filter: 'invert(100%)' }}>
-                                Now playing on Spotify&nbsp;
-                                <i className="spotify icon"></i>
-                            </div>
+                            {
+                                this.state.response.data.is_playing === true ?   
+                                <div className="center aligned author" style={{ color: `${this.state.dominant}`, filter: 'invert(100%)' }}>
+                                    Now playing on Spotify&nbsp;
+                                    <i className="spotify icon"></i>
+                                </div> :
+                                <div className="center aligned author" style={{ color: `${this.state.dominant}`, filter: 'invert(100%)', fontWeight: 'bold' }}>
+                                    Paused&nbsp;
+                                    <i className="spotify icon"></i>
+                                </div>
+                            }
                         </div>
                     </div> : <div/>
                 }

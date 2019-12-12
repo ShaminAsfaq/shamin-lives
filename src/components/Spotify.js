@@ -8,9 +8,9 @@ import axios from 'axios';
 import analyze from 'rgbaster';
 
 import '../styles/Spotify.css';
-import { stringify } from 'querystring';
 
 class Spotify extends React.Component {
+    baseURL = 'https://stormy-island-96373.herokuapp.com';
     constructor(props) {
         super(props);
         this.state = {}
@@ -19,7 +19,7 @@ class Spotify extends React.Component {
         this.timerID = setInterval(() => {
             axios({
                 method: 'GET',
-                url: 'http://118.179.95.206:5000/get_current_song'
+                url: `${this.baseURL}/get_current_song`
             }).then(async (response) => {
                 // console.log(response)
                 // console.log(this.state.response.data.item.album.images)

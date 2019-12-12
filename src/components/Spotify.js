@@ -10,7 +10,7 @@ import analyze from 'rgbaster';
 import '../styles/Spotify.css';
 
 class Spotify extends React.Component {
-    baseURL = 'https://stormy-island-96373.herokuapp.com';
+    baseURL = 'https://shamin-lives-server.herokuapp.com';
     constructor(props) {
         super(props);
         this.state = {}

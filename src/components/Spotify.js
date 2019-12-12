@@ -1,10 +1,13 @@
 /**
- * Complete Proto-Type. Need more time. Nothing is fixed here.
- * I want to show the currently playing song on my Spotify to the viewers of the Blog.
+ * Primary goal was to show the currently playing song on my Spotify to the viewers of the Blog.
  */
 import React from 'react';
 import axios from 'axios';
 
+/**
+ * 'analyze' helps extracting the most dominant color from the image of the currenlty playing song on Spotify.
+ * Then I used the inverted version of that color in the visual texts such as: Track Name, Artist and Duration
+ */
 import analyze from 'rgbaster';
 import prettyMilliseconds from 'pretty-ms';
 
@@ -48,10 +51,6 @@ class Spotify extends React.Component {
                             dominant: result[0].color
                         }
                     });
-                    // var found = JSON.stringify(result[0].color);
-                    // found = found.substr(1,found.length-2);
-                    // console.log(found)
-                    // console.log(found.substr(0, found.length-1) + ',0)' + found.substr(found.length+1));
 
                     var found = JSON.stringify(result[0].color);
                     found = found.substr(1,found.length-2);
@@ -66,9 +65,6 @@ class Spotify extends React.Component {
                             upperGradiant: upperGradiant
                         }
                     });
-
-                    // console.log(this.state.lowerGradiant)
-                    // console.log(this.state.upperGradiant)
                 }
             });
         }, 1000)

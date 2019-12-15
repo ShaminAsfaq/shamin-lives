@@ -3,7 +3,7 @@ import Memento from './Memento';
 
 const Home = () => {
     return (
-        <div className="ui cards" style={{ justifyContent: 'center', paddingTop: '5%' }}>
+        <div className="ui cards" style={{ justifyContent: 'center', paddingTop: '60px' }}>
             <Memento />
             <Memento />
             <Memento />

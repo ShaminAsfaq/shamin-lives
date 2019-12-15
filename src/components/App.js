@@ -9,7 +9,7 @@ import Spotify from './Spotify';
 
 const Menu = () => {
     return(
-        <div className="ui top fixed secondary pointing menu" style={{ backgroundColor: 'white' }}>
+        <div className="ui top secondary pointing menu" style={{ backgroundColor: 'white', position: 'fixed', width: '100%', top: '0', zIndex: '10', height: '50px' }}>
             <NavLink to="/" exact={true} className="item">
                 Home
             </NavLink>

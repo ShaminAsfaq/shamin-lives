@@ -7,7 +7,7 @@ const Chronicle = () => {
     }
 
     return (
-        <form  autoComplete="off" onSubmit={onSubmit} className="ui form" style={{ padding: '5% 5% 5% 5%' }}>
+        <form  autoComplete="off" onSubmit={onSubmit} className="ui form" style={{ padding: '60px 5% 5% 5%' }}>
             <div className="field">
                 <label>Title</label>
                 <input type="text" name="title" placeholder="Title of your chronicle"/>

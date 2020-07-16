@@ -14,7 +14,8 @@ import prettyMilliseconds from 'pretty-ms';
 import '../styles/Spotify.css';
 
 class Spotify extends React.Component {
-    baseURL = 'https://shamin-lives-server.herokuapp.com';
+    // baseURL = 'https://shamin-lives-server.herokuapp.com';
+    baseURL = 'http://localhost:5000';
     constructor(props) {
         super(props);
         this.state = {}

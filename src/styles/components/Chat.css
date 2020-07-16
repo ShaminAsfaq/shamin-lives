@@ -1,0 +1,209 @@
+.chat-window {   
+    /* float: right; */
+    position:fixed;
+    height: 50%;
+    width: 25%;
+    right: 20px;
+    /* left: 20px; */
+	bottom: 5px;
+    background: rgb(245, 245, 245);
+    border-radius: 5px 5px 0px 0px;
+    z-index:100;
+    /* border-style: solid; */
+
+    box-shadow: 
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12)
+}
+
+
+.chat-input {
+    /* margin-top: 80% !important; */
+    height: 13%;
+    position: absolute !important;
+    bottom: 0px !important;
+    left: 0px;
+    right: 0px;
+}
+
+.chat-input-text-area {
+    border-radius: 0 !important;
+    border: none !important;
+    background: #fff0f2 !important;
+
+    width: 100%;
+    resize: none;
+    outline: none;
+    padding: 10px;
+}
+
+.chat-input-text-field {
+    border-radius: 0 !important;
+    border: none !important;
+    background: #fff0f2 !important;
+}
+
+.send-button {
+    background-color: #CC6699;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    width: 13%;
+
+    overflow-wrap: break-word;
+}
+
+.close-button {
+    float: right;
+    background-color: rebeccapurple;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    /* width: 13%; */
+}
+
+.send-button:hover {
+    background-color: #CC3399;
+}
+
+.send-button:focus, .close-button:focus {
+    outline:0;
+}
+
+
+/* Message from client, LEFT ARROW */
+
+.single-message-inner-div-client {
+    margin-right: 10%;
+	position: relative;
+	background: #228B22;
+    border: 4px solid rgb(245, 245, 245);
+    padding: 12px;
+    color: white;
+    font-size: 1.25rem;
+    padding: 15px;
+
+    /* Making the borders round */
+    border-radius: 15px;
+}
+
+.single-message-inner-div-client:after, .single-message-inner-div-client:before {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	position: absolute;
+	pointer-events: none;
+}
+
+.single-message-inner-div-client:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-right-color: #228B22;
+	border-width: 10px;
+	margin-top: -10px;
+}
+
+.single-message-inner-div-client:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-right-color: rgb(245, 245, 245);
+	border-width: 16px;
+	margin-top: -16px;
+}
+
+
+/* Message from server, RIGHT ARROW */
+
+.single-message-inner-div-server {
+    margin-left: 15%;
+	position: relative;
+	background: #3366FF;
+    border: 4px solid rgb(245, 245, 245);
+    padding: 12px;
+    color: white;
+    font-size: 1.25rem;
+    padding: 15px;
+
+    /* Making the borders round */
+    border-radius: 15px;
+}
+
+.single-message-inner-div-server:after, .single-message-inner-div-server:before {
+	left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	position: absolute;
+	pointer-events: none;
+}
+
+.single-message-inner-div-server:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-left-color: #3366FF;
+	border-width: 10px;
+	margin-top: -10px;
+}
+
+.single-message-inner-div-server:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-left-color: rgb(245, 245, 245);
+	border-width: 16px;
+	margin-top: -16px;
+}
+
+.message-list-div {
+    top: 5%;
+    right: 3%;
+    left: 3%;
+    height: 78%;
+    /* position: absolute; */
+    border-radius: 6px;
+
+
+    /* ScrollBar Starts */
+    /* Originally from: https://stackoverflow.com/a/16671476/5554993 */
+
+    /* overflow-y: scroll; */
+    overflow-x: hidden;
+    /* Increase/decrease this value for cross-browser compatibility */
+    padding-right: 13px;
+    padding-left: 13px;
+    /* So the width will be 100% + 17px */
+    box-sizing: content-box;
+
+    /* ScrollBar Ends */
+
+
+
+    /* Meant to break long words and spaces */
+
+    /* overflow-wrap: break-word; */
+    /* word-wrap: break-word; */
+    /* word-break: break-all; */
+    /* word-break: break-word; */
+    /* hyphens: auto; */
+}
+
+
+.chat-box-head {
+    background-color: rebeccapurple;
+    padding: 2.5% 1% 2.5% 5%;
+    /* padding: 2.5%; */
+    /* text-align: center; */
+    /* font-weight: bold; */
+    color: white;
+    font-size: 1.25rem;
+    border-radius: 25px 25px 0px 0px;
+}
+
+
+
+
+
+
+

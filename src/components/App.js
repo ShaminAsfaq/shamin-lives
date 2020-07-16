@@ -7,6 +7,9 @@ import Home from './Home';
 import NotFound from './404';
 import Spotify from './Spotify';
 import FriendsRandom from './discover/FriendsRandom';
+import Chat from '../chat/Chat';
+
+import '../styles/App.css';
 
 const Menu = () => {
     return(
@@ -32,7 +35,7 @@ const Menu = () => {
 const App = () => {
     return (
         <BrowserRouter>
-            <div>
+            <div className='app-component'>
                 <Menu />
                 <Switch>
                     <Route path='/' component={Home} exact={true}/>
@@ -40,8 +43,11 @@ const App = () => {
                     <Route path='/discover' component={FriendsRandom} />
                     <Route component={NotFound}/>
                 </Switch>
-                <Spotify />
+                {
+                    // <Spotify />
+                }
              </div>
+             <Chat/>
         </BrowserRouter>
     );
 }

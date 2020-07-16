@@ -21,7 +21,7 @@ const Chat = () => {
                 <div className='chat-box-head'>
                     #general
                     <button onClick={onCloseChatBox} className='close-button'>
-                        <i className="angle double down icon"></i>
+                        close
                     </button>
                 </div>
             </div>

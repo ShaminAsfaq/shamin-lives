@@ -20,6 +20,16 @@
     0 100px 80px rgba(0, 0, 0, 0.12)
 }
 
+.chat-window-closed {
+    position:fixed;
+    width: 25%;
+    right: 20px;
+    /* left: 20px; */
+	bottom: 5px;
+    background: rgb(245, 245, 245);
+    border-radius: 5px 5px 0px 0px;
+    z-index:100;
+}
 
 .chat-input {
     /* margin-top: 80% !important; */

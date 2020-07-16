@@ -28,6 +28,8 @@
     bottom: 0px !important;
     left: 0px;
     right: 0px;
+    
+    /* pointer-events: none; */
 }
 
 .chat-input-text-area {
@@ -53,7 +55,7 @@
     color: white;
     font-size: 16px;
     cursor: pointer;
-    width: 13%;
+    width: 15%;
 
     overflow-wrap: break-word;
 }
@@ -71,6 +73,7 @@
 
 .send-button:hover {
     background-color: #CC3399;
+
 }
 
 .send-button:focus, .close-button:focus {

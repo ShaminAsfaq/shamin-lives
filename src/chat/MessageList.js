@@ -45,7 +45,11 @@ const MessageList = () => {
 
     return (
         <div className='message-list-div'>
-            {availableMessages.map(({user, message}, i) => <Message key={i} user={user} message={message}/>)}
+            {
+                availableMessages.map(
+                    ({user, message}, i) => <Message key={i} user={user} message={message}/>
+                )
+            }
         </div>
     );
 }

@@ -13,6 +13,8 @@ const Chat = () => {
         console.log('Toss a coin to your witcher');
     }
 
+    let isBlocked = true;
+
     useEffect(() => {});
 
     return(
@@ -26,20 +28,26 @@ const Chat = () => {
                 </div>
             </div>
             <MessageList/>
-            <div className="ui big icon input chat-input">
-     
-                {
-                    // <input type="text" placeholder="Your message..." className='chat-input-text-field'/>
-                }
-                <textarea className='chat-input-text-area' rows='2'></textarea>
-                <button 
-                    className="send-button" 
-                    type="submit"
-                    onClick={onSendMessage}
-                >
-                Send
-                </button>
-            </div>
+            {
+                !isBlocked &&
+                <div className="ui big icon input chat-input">
+                    <textarea disabled className='chat-input-text-area' rows='2'></textarea>
+                    <button 
+                        disabled
+                        className="send-button" 
+                        type="submit"
+                        onClick={onSendMessage}
+                    >
+                    Send
+                    </button>
+                </div>
+            }
+            {
+                isBlocked &&
+                <div style={{textAlign:'center', color: 'red', paddingTop: '7%'}}>
+                    Unfortunately, you have been blocked.
+                </div>
+            }
         </div>
     );
 }

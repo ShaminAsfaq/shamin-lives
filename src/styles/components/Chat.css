@@ -64,6 +64,7 @@
     float: right;
     background-color: rebeccapurple;
     border: none;
+    border-radius: 50px;
     color: white;
     font-size: 16px;
     cursor: pointer;

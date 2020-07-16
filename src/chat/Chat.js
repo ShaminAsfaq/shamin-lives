@@ -13,7 +13,7 @@ const Chat = () => {
         console.log('Toss a coin to your witcher');
     }
 
-    let isBlocked = true;
+    let isBlocked = false;
 
     useEffect(() => {});
 
@@ -31,9 +31,8 @@ const Chat = () => {
             {
                 !isBlocked &&
                 <div className="ui big icon input chat-input">
-                    <textarea disabled className='chat-input-text-area' rows='2'></textarea>
+                    <textarea className='chat-input-text-area' rows='2'></textarea>
                     <button 
-                        disabled
                         className="send-button" 
                         type="submit"
                         onClick={onSendMessage}

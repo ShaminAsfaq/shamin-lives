@@ -119,7 +119,7 @@ const Chat = () => {
                 message: `Socket connection successful`,
                 theme: 'red',
                 native: true, // when using native, your OS will handle theming.
-                icon: 'https://ae01.alicdn.com/kf/HTB1_WAoayYrK1Rjy0Fdq6ACvVXaa.jpg',
+                icon: 'https://pbs.twimg.com/profile_images/470682672235151360/vI0ZZlhZ_400x400.png',
                 duration: 10000
             });
         });

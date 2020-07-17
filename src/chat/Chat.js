@@ -7,7 +7,9 @@ import ReactDOMServer from 'react-dom/server';
 import '../styles/components/Chat.css';
 
 const Chat = () => {
-
+    /**
+     * Dummy messages for the purpose of showcasing.
+     */
     let availableMessages = [
         {
             user: 'client',
@@ -47,20 +49,35 @@ const Chat = () => {
         },
     ];
 
+    /**
+     * Enabling state and other variables.
+     */
+    let isBlocked = false;   //  Emulates a blocked user.
+    let [visible, updateVisible] = useState(true);  //  MessageList visibility. Works while closing the chat box.
+    let [hiddenElement, updateHiddenElement] = useState([]);    //  Keeps the Chat Box to use if re-opened the closed chat box.
+    let [messageList, updateMessageList] = useState(availableMessages); //  It will take the incoming messages from the server when we start working with socket.io
 
-    let isBlocked = false;
-    let [visible, updateVisible] = useState(true);
-    let [hiddenElement, updateHiddenElement] = useState([]);
-    let [messageList, updateMessageList] = useState(availableMessages);
-
-    //  Buggy. Takes the ENTER press twice, taking me into oblivion.
+    /**
+     * July 16th, 2020
+     * Buggy. Takes the ENTER press twice, taking me into oblivion.
+     * 
+     * 1 day later:
+     * July 17th, 2020
+     * Update: Suddenly working perfectly. No idea why!!
+     * 
+     * @param {*} event 
+     */
     const onEnter = (event) => {
         if(event.which === 13){
+            onSendMessage();
             event.target.dispatchEvent(new Event("submit", {cancelable: true}));
             event.preventDefault(); // Prevents the addition of a new line in the text field (not needed in a lot of cases)
         }
     }
 
+    /**
+     * Making the scroller go down at the bottom of the MessageList to view the latest message everytime.
+     */
     const scrollDownToLatest = () => {
         var messages = document.getElementsByClassName("message-list-div")[0];
         if(messages){
@@ -68,17 +85,33 @@ const Chat = () => {
         }
     }
 
-
+    /**
+     * Works as ComponentDidMount() and ComponentDidUpdate() of a class based React Component.
+     */
     useEffect(() => {
-        //  Scroll to the bottom of the Message List
+        /**
+         * Scroll to the bottom of the Message List
+         */
         scrollDownToLatest();
-        // updateMessageList(messageList);
 
-        //  to Send message on ENTER press
-        // document.getElementsByClassName("chat-input-text-area")[0].addEventListener("keypress", onEnter);
+        /**
+         * Binding eventListener with the ENTER key to Send message if pressed.
+         * 
+         * isBlocked value is to showcase if user is blocked from the chat box. In case of TRUE,
+         * the chat box won't render. No point of attempting to add an event listener to UNDEFINED.
+         */
+        let chatBox = document.getElementsByClassName("chat-input-text-area")[0];
+        if(!isBlocked && chatBox) {
+            chatBox.addEventListener("keypress", onEnter);
+        }
 
     });
 
+    /**
+     * Removing any spaces from the beginning and the end of a message.
+     * 
+     * @param {*} string 
+     */
     let trimSpaceOnlyFromStartAndEnd = (string) => {
         let len = string.length;
         let result = '';
@@ -103,6 +136,10 @@ const Chat = () => {
         return result;
     }
 
+    /**
+     * Executes if SEND button clicked. Also, if ENTER is pressed.
+     * It sends the message to the server.
+     */
     let onSendMessage = () => {
         let text = document.getElementsByClassName('chat-input-text-area')[0].value;
         text = trimSpaceOnlyFromStartAndEnd(text);
@@ -137,6 +174,9 @@ const Chat = () => {
         document.getElementsByClassName('chat-input-text-area')[0].focus();
     };
 
+    /**
+     * Closes the chat box down.
+     */
     let onCloseChatBox = () => {
         let foundDiv = document.getElementsByClassName('chat-window')
 
@@ -155,12 +195,12 @@ const Chat = () => {
             {
                 visible &&
                 <div className='chat-window'>
-                    <div className='chat-box-head-wannabe'>
+                    <div className='chat-box-head-wannabe' onClick={onCloseChatBox}>
                         <div className='chat-box-head'>
                             #general
-                            <button onClick={onCloseChatBox} className='close-button'>
+                            <div onClick={onCloseChatBox} className='open-close-tag'>
                                 close
-                            </button>
+                            </div>
                         </div>
                     </div>
                     <MessageList availableMessages={messageList}/>
@@ -172,18 +212,24 @@ const Chat = () => {
                                 placeholder='Your message..'
                             >
                             </textarea>
-                            <button 
-                                className="send-button" 
-                                type="submit"
-                                onClick={onSendMessage}
-                            >
-                            Send
-                            </button>
+                            {
+                                /**
+                                 * Send button: initially used when ENTER button didn't work as a sender.
+                                 * "We're gonna be okay. You can rest now." [Endgame Easter Egg. Pepper Potts]
+                                 */
+                                // <button 
+                                //     className="send-button" 
+                                //     type="submit"
+                                //     onClick={onSendMessage}
+                                // >
+                                // Send
+                                // </button>
+                            }
                         </div>
                     }
                     {
                         isBlocked &&
-                        <div style={{textAlign:'center', color: 'red', paddingTop: '7%'}}>
+                        <div style={{textAlign:'center', color: 'red', paddingTop: '3.5%'}}>
                             Unfortunately, you have been blocked.
                         </div>
                     }
@@ -192,12 +238,12 @@ const Chat = () => {
             {
                 !visible &&
                 <div className='chat-window-closed'>
-                    <div className='chat-box-head-wannabe'>
+                    <div className='chat-box-head-wannabe' onClick={onCloseChatBox}>
                         <div className='chat-box-head'>
                             #general
-                            <button onClick={onCloseChatBox} className='close-button'>
+                            <div onClick={onCloseChatBox} className='open-close-tag'>
                                 open
-                            </button>
+                            </div>
                         </div>
                     </div>
                 </div>

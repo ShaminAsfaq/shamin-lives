@@ -27,6 +27,10 @@
     0 100px 80px rgba(0, 0, 0, 0.12)
 }
 
+.chat-box-head-wannabe {
+    cursor: pointer;
+}
+
 .chat-window-closed {
     position:fixed;
     width: 25%;
@@ -40,7 +44,6 @@
 
 .chat-box-head {
     min-height: 10%;
-
     background-color: #e8c70e;
     padding: 2.5% 1% 2.5% 5%;
     color: black;
@@ -48,16 +51,13 @@
     border-radius: 25px 25px 0px 0px;
 }
 
-.close-button {
+.open-close-tag {
     float: right;
     background-color: #e8c70e;
-    border: none;
-    border-radius: 50px;
-    color: black;
     font-size: 16px;
     cursor: pointer;
     margin-right: 5%;
-    /* width: 13%; */
+    border-radius: 25px;
 }
 
 
@@ -135,7 +135,7 @@
 
 }
 
-.send-button:focus, .close-button:focus {
+.send-button:focus {
     outline:0;
 }
 

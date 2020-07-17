@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Message from './Message';
 import MessageList from './MessageList';
 import ScrollToBottom from 'react-scroll-to-bottom';
 
@@ -51,7 +52,7 @@ const Chat = () => {
     let [hiddenElement, updateHiddenElement] = useState([]);
     let [messageList, updateMessageList] = useState(availableMessages);
 
-    //  Buggy. Takes the ENTER press twice, resulting in instability.
+    //  Buggy. Takes the ENTER press twice, taking me into oblivion.
     const onEnter = (event) => {
         if(event.which === 13){
             event.target.dispatchEvent(new Event("submit", {cancelable: true}));
@@ -59,26 +60,18 @@ const Chat = () => {
         }
     }
 
+    const scrollDownToLatest = () => {
+        var messages = document.getElementsByClassName("message-list-div")[0];
+        if(messages){
+            messages.scrollTop = messages.scrollHeight;
+        }
+    }
+
 
     useEffect(() => {
-        let foundDiv = document.getElementsByClassName('chat-window')
-
-        if(foundDiv[0]) {
-            let foundVisibility = document.getElementsByClassName('chat-window')[0].style.visibility;
-            updateVisible(foundVisibility==='hidden'?false:true);
-            updateHiddenElement(foundDiv[0]);
-        }
-
-        var messageList = document.getElementsByClassName("message-list-div")[0];
-        if(messageList){
-            messageList.scrollTop = messageList.scrollHeight;
-        }
-
-        // window.scrollTo({
-        //     top: lastMessage.body.scrollHeight,
-        //     left: 0,
-        //     behavior: 'smooth'
-        //   });
+        //  Scroll to the bottom of the Message List
+        scrollDownToLatest();
+        // updateMessageList(messageList);
 
         //  to Send message on ENTER press
         // document.getElementsByClassName("chat-input-text-area")[0].addEventListener("keypress", onEnter);
@@ -114,13 +107,39 @@ const Chat = () => {
         text = trimSpaceOnlyFromStartAndEnd(text);
 
         if(text.length>0) {
-            let newMessage = {
-                user: 'client',
-                message: text
-            };
-            updateMessageList([...messageList, newMessage]);
+            /**
+             * Updating the state attribte that contains all the messages.
+             * THis is not good, and shouldn't be done.
+             */
+            // let newMessage = {
+            //     user: 'client',
+            //     message: text
+            // };
+            // updateMessageList([...messageList, newMessage]);
+
+
+            /**
+             * Instead, adding new child to the MessageList div when sent.
+             */
+            let list = document.getElementsByClassName('message-list-div')[0];
+            let node = 
+                `<div class='single-message-div'>
+                    <div class='single-message-inner-div-client'>
+                        <div>${text}</div>
+                    </div>
+                </div>`
+            ;
+
+            var div = document.createElement('div');
+            div.innerHTML = node.trim();
+            node = div.firstChild;
+
+            list.appendChild(node);
+            scrollDownToLatest();
         }
+
         document.getElementsByClassName('chat-input-text-area')[0].value = '';
+        document.getElementsByClassName('chat-input-text-area')[0].focus();
     };
 
     let onCloseChatBox = () => {
@@ -129,6 +148,7 @@ const Chat = () => {
         if(foundDiv[0]) {
             let foundVisibility = document.getElementsByClassName('chat-window')[0].style.visibility;
             updateVisible(foundVisibility==='hidden'?true:false);
+            updateHiddenElement(foundDiv[0]);
         } else {
             let foundVisibility = hiddenElement.style.visibility;
             updateVisible(foundVisibility==='hidden'?false:true);

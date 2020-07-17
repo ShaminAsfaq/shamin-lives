@@ -1,20 +1,20 @@
 import React from 'react';
-
+import '../styles/components/Message.css';
 
 const Message = ({user, message}) => {
     return(
-        <div>
+        <div className='single-message-div'>
             {
                 user==='client' &&
                 <div className='single-message-inner-div-client'>
-                    {message}
+                    <div>{message}</div>
                 </div>
             }
 
             {
                 user==='server' &&
                 <div className='single-message-inner-div-server'>
-                    {message}
+                    <div>{message}</div>
                 </div>
             }
         </div>

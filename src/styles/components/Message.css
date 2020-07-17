@@ -1,0 +1,117 @@
+.single-message-div {
+	cursor: pointer;
+}
+
+.single-message-div > div > div::selection {
+	background-color: #aaa;
+    color: white;
+}
+
+/* Message from client, LEFT ARROW */
+
+.single-message-inner-div-client {
+    margin-right: 10%;
+	position: relative;
+	background: #add8e6;
+    /* border: 4px solid rgb(245, 245, 245); */
+    color: black;
+    font-size: 1.25rem;
+    padding: 15px;
+
+    /* Making the borders round */
+	border-radius: 15px;
+
+	box-shadow: 
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+	0 100px 80px rgba(0, 0, 0, 0.12)
+	
+
+}
+
+.single-message-inner-div-client:after, .single-message-inner-div-client:before {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	position: absolute;
+	pointer-events: none;
+}
+
+.single-message-inner-div-client:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-right-color: #add8e6;
+	border-width: 10px;
+	margin-top: -10px;
+}
+
+.single-message-inner-div-client:before {
+	border-color: rgba(194, 225, 245, 0);
+	/* border-right-color: rgb(245, 245, 245); */
+	border-width: 16px;
+	margin-top: -16px;
+}
+
+
+/* Message from server, RIGHT ARROW */
+
+.single-message-inner-div-server {
+    margin-left: 15%;
+	position: relative;
+	background: #f25779;
+    /* border: 4px solid rgb(245, 245, 245); */
+    color: white;
+    font-size: 1.25rem;
+    padding: 15px;
+
+    /* Making the borders round */
+	border-radius: 15px;
+
+	box-shadow: 
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+	0 100px 80px rgba(0, 0, 0, 0.12)
+}
+
+.single-message-inner-div-server:after, .single-message-inner-div-server:before {
+	left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	position: absolute;
+	pointer-events: none;
+}
+
+.single-message-inner-div-server:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-left-color: #f25779;
+	border-width: 10px;
+	margin-top: -10px;
+}
+
+.single-message-inner-div-server:before {
+	border-color: rgba(194, 225, 245, 0);
+	/* border-left-color: rgb(245, 245, 245); */
+	border-width: 16px;
+	margin-top: -16px;
+}
+
+.message-list-div > div {
+    margin-bottom: 2%;
+}
+
+.message-list-div > div:last-child {
+    margin-bottom: 25%;
+}
+
+.message-list-div > div:first-child {
+    margin-top: 2%;
+}
+
+

@@ -50,8 +50,8 @@ const Chat = () => {
     let [visible, updateVisible] = useState(true);
     let [hiddenElement, updateHiddenElement] = useState([]);
     let [messageList, updateMessageList] = useState(availableMessages);
-    let counter = 0;
 
+    //  Buggy. Takes the ENTER press twice, resulting in instability.
     const onEnter = (event) => {
         if(event.which === 13){
             event.target.dispatchEvent(new Event("submit", {cancelable: true}));
@@ -69,18 +69,57 @@ const Chat = () => {
             updateHiddenElement(foundDiv[0]);
         }
 
+        var messageList = document.getElementsByClassName("message-list-div")[0];
+        if(messageList){
+            messageList.scrollTop = messageList.scrollHeight;
+        }
+
+        // window.scrollTo({
+        //     top: lastMessage.body.scrollHeight,
+        //     left: 0,
+        //     behavior: 'smooth'
+        //   });
+
+        //  to Send message on ENTER press
         // document.getElementsByClassName("chat-input-text-area")[0].addEventListener("keypress", onEnter);
 
-    });    
+    });
+
+    let trimSpaceOnlyFromStartAndEnd = (string) => {
+        let len = string.length;
+        let result = '';
+
+        for(let idx=0; idx<len; idx++){
+            if(string[idx]===' ') {
+                continue;
+            }
+            result = string.substring(idx);
+            break;
+        }
+
+        len = result.length;
+        for(let idx=len-1; idx>=0; idx--){
+            if(string[idx]===' ') {
+                continue;
+            }
+            result = result.substring(0, idx+1);
+            break;
+        }
+
+        return result;
+    }
 
     let onSendMessage = () => {
         let text = document.getElementsByClassName('chat-input-text-area')[0].value;
+        text = trimSpaceOnlyFromStartAndEnd(text);
 
-        let newMessage = {
-            user: 'client',
-            message: text
-        };
-        updateMessageList([...messageList, newMessage]);
+        if(text.length>0) {
+            let newMessage = {
+                user: 'client',
+                message: text
+            };
+            updateMessageList([...messageList, newMessage]);
+        }
         document.getElementsByClassName('chat-input-text-area')[0].value = '';
     };
 
@@ -97,7 +136,7 @@ const Chat = () => {
     }
 
     return(
-        <div>
+        <div style={{display: 'flex', flexWrap: 'wrap'}}>
             {
                 visible &&
                 <div className='chat-window'>

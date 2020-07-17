@@ -1,4 +1,4 @@
-.chat-window {   
+.chat-window {
     /* float: right; */
     position:fixed;
     height: 50%;
@@ -8,7 +8,7 @@
 	bottom: 5px;
     /* background: rgb(245, 245, 245); */
     background: #f5fffa;
-    border-radius: 5px 5px 0px 0px;
+    border-radius: 25px 25px 0px 0px;
     z-index:100;
     /* border-style: solid; */
 
@@ -28,11 +28,79 @@
     /* left: 20px; */
 	bottom: 5px;
     background: rgb(245, 245, 245);
-    border-radius: 5px 5px 0px 0px;
+    border-radius: 25px 25px 0px 0px;
     z-index:100;
 }
 
+.chat-box-head {
+    min-height: 10%;
+    
+    
+    background-color: #e8c70e;
+    /* background-color: black; */
+    padding: 2.5% 1% 2.5% 5%;
+    /* padding: 2.5%; */
+    /* text-align: center; */
+    /* font-weight: bold; */
+    color: black;
+    font-size: 1.25rem;
+    border-radius: 25px 25px 0px 0px;
+    
+}
+
+.close-button {
+    float: right;
+    background-color: #e8c70e;
+    border: none;
+    border-radius: 50px;
+    color: black;
+    font-size: 16px;
+    cursor: pointer;
+    margin-right: 5%;
+    /* width: 13%; */
+}
+
+
+.message-list-div {
+    min-height: 60%;
+    
+
+    top: 5%;
+    right: 3%;
+    left: 3%;
+    height: 80%;
+    /* position: absolute; */
+    /* border-radius: 25px; */
+
+
+    /* ScrollBar Starts */
+    /* Originally from: https://stackoverflow.com/a/16671476/5554993 */
+
+    /* overflow-y: scroll; */
+    overflow-x: hidden;
+    /* Increase/decrease this value for cross-browser compatibility */
+    padding-right: 13px;
+    padding-left: 13px;
+    /* So the width will be 100% + 17px */
+    box-sizing: content-box;
+
+    /* ScrollBar Ends */
+
+
+
+    /* Meant to break long words and spaces */
+
+    /* overflow-wrap: break-word; */
+    /* word-wrap: break-word; */
+    /* word-break: break-all; */
+    /* word-break: break-word; */
+    /* hyphens: auto; */
+}
+
 .chat-input {
+    min-height: 10%;
+
+
     /* margin-top: 80% !important; */
     height: 13%;
     position: absolute !important;
@@ -60,33 +128,15 @@
     box-shadow: inset 0px 0px 25px 0px rgba(0,0,0,0.3);
 }
 
-.chat-input-text-field {
-    border-radius: 0 !important;
-    border: none !important;
-    background: #fff0f2 !important;
-}
-
 .send-button {
     background-color: #e8c70e;
     border: none;
     color: black;
     font-size: 16px;
     cursor: pointer;
-    width: 15%;
+    width: 25%;
 
     overflow-wrap: break-word;
-}
-
-.close-button {
-    float: right;
-    background-color: #e8c70e;
-    border: none;
-    border-radius: 50px;
-    color: black;
-    font-size: 16px;
-    cursor: pointer;
-    padding-right: 5%;
-    /* width: 13%; */
 }
 
 .send-button:hover {
@@ -97,53 +147,6 @@
 .send-button:focus, .close-button:focus {
     outline:0;
 }
-
-.chat-box-head {
-    background-color: #e8c70e;
-    padding: 2.5% 1% 2.5% 5%;
-    /* padding: 2.5%; */
-    /* text-align: center; */
-    /* font-weight: bold; */
-    color: black;
-    font-size: 1.25rem;
-    border-radius: 25px 25px 0px 0px;
-}
-
-
-.message-list-div {
-    top: 5%;
-    right: 3%;
-    left: 3%;
-    height: 80%;
-    /* position: absolute; */
-    border-radius: 6px;
-
-
-    /* ScrollBar Starts */
-    /* Originally from: https://stackoverflow.com/a/16671476/5554993 */
-
-    /* overflow-y: scroll; */
-    overflow-x: hidden;
-    /* Increase/decrease this value for cross-browser compatibility */
-    padding-right: 13px;
-    padding-left: 13px;
-    /* So the width will be 100% + 17px */
-    box-sizing: content-box;
-
-    /* ScrollBar Ends */
-
-
-
-    /* Meant to break long words and spaces */
-
-    /* overflow-wrap: break-word; */
-    /* word-wrap: break-word; */
-    /* word-break: break-all; */
-    /* word-break: break-word; */
-    /* hyphens: auto; */
-}
-
-
 
 
 

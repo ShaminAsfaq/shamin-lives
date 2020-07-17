@@ -13,10 +13,10 @@
     margin-right: 10%;
 	position: relative;
 	background: #add8e6;
-    /* border: 4px solid rgb(245, 245, 245); */
+    /* border: 2px solid rgb(245, 245, 245); */
     color: black;
     font-size: 1.25rem;
-    padding: 15px;
+    padding: 10px;
 
     /* Making the borders round */
 	border-radius: 15px;
@@ -33,7 +33,7 @@
 }
 
 .single-message-inner-div-client:after, .single-message-inner-div-client:before {
-	right: 100%;
+	right: 99%;
 	top: 50%;
 	border: solid transparent;
 	content: " ";
@@ -62,10 +62,10 @@
     margin-left: 15%;
 	position: relative;
 	background: #f25779;
-    /* border: 4px solid rgb(245, 245, 245); */
+    /* border: 2px solid rgb(245, 245, 245); */
     color: white;
     font-size: 1.25rem;
-    padding: 15px;
+    padding: 10px;
 
     /* Making the borders round */
 	border-radius: 15px;
@@ -80,7 +80,7 @@
 }
 
 .single-message-inner-div-server:after, .single-message-inner-div-server:before {
-	left: 100%;
+	left: 99%;
 	top: 50%;
 	border: solid transparent;
 	content: " ";
@@ -115,3 +115,20 @@
 }
 
 
+.single-message-inner-div-server:hover {
+	background: #eb4b6e;
+}
+
+.single-message-inner-div-server:hover:after {
+	border-left-color: #eb4b6e;
+}
+
+
+
+.single-message-inner-div-client:hover {
+	background: #9ecad9;
+}
+
+.single-message-inner-div-client:hover:after {
+	border-right-color: #9ecad9;
+}

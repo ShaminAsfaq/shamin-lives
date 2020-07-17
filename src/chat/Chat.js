@@ -69,7 +69,7 @@ const Chat = () => {
             updateHiddenElement(foundDiv[0]);
         }
 
-        document.getElementsByClassName("chat-input-text-area")[0].addEventListener("keypress", onEnter);
+        // document.getElementsByClassName("chat-input-text-area")[0].addEventListener("keypress", onEnter);
 
     });    
 

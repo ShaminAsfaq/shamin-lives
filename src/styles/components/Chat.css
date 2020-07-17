@@ -1,8 +1,14 @@
+.chat-one-above-all {
+    /* display: flex;
+    flex-wrap: wrap; */
+    width: 500px;
+}
+
 .chat-window {
     /* float: right; */
     position:fixed;
-    height: 50%;
-    width: 25%;
+    height: 60%;
+    width: 30%;
     right: 20px;
     /* left: 20px; */
 	bottom: 5px;
@@ -34,18 +40,12 @@
 
 .chat-box-head {
     min-height: 10%;
-    
-    
+
     background-color: #e8c70e;
-    /* background-color: black; */
     padding: 2.5% 1% 2.5% 5%;
-    /* padding: 2.5%; */
-    /* text-align: center; */
-    /* font-weight: bold; */
     color: black;
     font-size: 1.25rem;
     border-radius: 25px 25px 0px 0px;
-    
 }
 
 .close-button {
@@ -63,16 +63,8 @@
 
 .message-list-div {
     min-height: 60%;
+    height: 85%;
     
-
-    top: 5%;
-    right: 3%;
-    left: 3%;
-    height: 80%;
-    /* position: absolute; */
-    /* border-radius: 25px; */
-
-
     /* ScrollBar Starts */
     /* Originally from: https://stackoverflow.com/a/16671476/5554993 */
 
@@ -82,14 +74,12 @@
     padding-right: 13px;
     padding-left: 13px;
     /* So the width will be 100% + 17px */
-    box-sizing: content-box;
+    /* box-sizing: content-box; */
 
     /* ScrollBar Ends */
 
 
-
     /* Meant to break long words and spaces */
-
     /* overflow-wrap: break-word; */
     /* word-wrap: break-word; */
     /* word-break: break-all; */
@@ -102,7 +92,7 @@
 
 
     /* margin-top: 80% !important; */
-    height: 13%;
+    height: 5%;
     position: absolute !important;
     bottom: 0px !important;
     left: 0px;
@@ -119,13 +109,13 @@
     width: 100%;
     resize: none;
     outline: none;
-    padding: 5% 0px 0px 5%;
+    padding: 3.5% 0px 0px 5%;
 
-    
+    border-top: 1px solid #c9bdbd !important;
 
-    -webkit-box-shadow: inset 0px 0px 30px 0px rgba(0,0,0,0.3);
+    /* -webkit-box-shadow: inset 0px 0px 30px 0px rgba(0,0,0,0.3);
     -moz-box-shadow: inset 0px 0px 30px 0px rgba(0,0,0,0.3);
-    box-shadow: inset 0px 0px 25px 0px rgba(0,0,0,0.3);
+    box-shadow: inset 0px 0px 25px 0px rgba(0,0,0,0.3); */
 }
 
 .send-button {
@@ -137,6 +127,7 @@
     width: 25%;
 
     overflow-wrap: break-word;
+    border-top: 1px solid #c9bdbd;
 }
 
 .send-button:hover {

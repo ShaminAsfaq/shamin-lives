@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Message from './Message';
 import MessageList from './MessageList';
-import ScrollToBottom from 'react-scroll-to-bottom';
+
+import ReactDOMServer from 'react-dom/server';
 
 import '../styles/components/Chat.css';
 
@@ -122,19 +123,13 @@ const Chat = () => {
              * Instead, adding new child to the MessageList div when sent.
              */
             let list = document.getElementsByClassName('message-list-div')[0];
-            let node = 
-                `<div class='single-message-div'>
-                    <div class='single-message-inner-div-client'>
-                        <div>${text}</div>
-                    </div>
-                </div>`
-            ;
-
+            let node = <Message user={'client'} message={text}/>;
+            node = ReactDOMServer.renderToStaticMarkup(node);
             var div = document.createElement('div');
             div.innerHTML = node.trim();
             node = div.firstChild;
-
             list.appendChild(node);
+
             scrollDownToLatest();
         }
 
@@ -156,7 +151,7 @@ const Chat = () => {
     }
 
     return(
-        <div style={{display: 'flex', flexWrap: 'wrap'}}>
+        <div className='chat-one-above-all'>
             {
                 visible &&
                 <div className='chat-window'>

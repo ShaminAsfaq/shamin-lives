@@ -1,12 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import Message from './Message';
 import MessageList from './MessageList';
-
 import ReactDOMServer from 'react-dom/server';
+import io from 'socket.io-client';
+
+/**
+ * To send notification to desktop
+ */
+import addNotification, { Notifications } from 'react-push-notification';
 
 import '../styles/components/Chat.css';
 
 const Chat = () => {
+
+    /**
+     * Socket server URL
+     */
+    // let SOCKET_URL = 'http://118.179.95.206:5000';
+    let SOCKET_URL = 'https://shamin-lives.now.sh';
+
+    /**
+     * Socket from socket.io-client
+     */
+    let socket = io(SOCKET_URL);
+
     /**
      * Dummy messages for the purpose of showcasing.
      */
@@ -89,6 +106,31 @@ const Chat = () => {
      * Works as ComponentDidMount() and ComponentDidUpdate() of a class based React Component.
      */
     useEffect(() => {
+        /**
+         * Socket connection check
+         */
+        // console.log(socket.connected);
+
+        socket.on('connect', () => {
+            // console.log(socket.connected);
+            addNotification({
+                title: 'Connected',
+                subtitle: `Congratulations`,
+                message: `Socket connection successful`,
+                theme: 'red',
+                native: true, // when using native, your OS will handle theming.
+                icon: 'https://ae01.alicdn.com/kf/HTB1_WAoayYrK1Rjy0Fdq6ACvVXaa.jpg',
+                duration: 10000
+            });
+        });
+
+        socket.on('disconnect', () => {
+            console.log(socket.connected);
+
+            // socket.disconnect();
+        });
+
+
         /**
          * Scroll to the bottom of the Message List
          */

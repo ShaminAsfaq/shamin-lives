@@ -44,7 +44,8 @@
 
 .chat-box-head {
     min-height: 10%;
-    background-color: #e8c70e;
+    /* background-color: #e8c70e; */
+    background-color: #f25779;
     padding: 2.5% 1% 2.5% 5%;
     color: black;
     font-size: 1.25rem;
@@ -53,7 +54,6 @@
 
 .open-close-tag {
     float: right;
-    background-color: #e8c70e;
     font-size: 16px;
     cursor: pointer;
     margin-right: 5%;

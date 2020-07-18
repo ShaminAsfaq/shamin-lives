@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch, NavLink } from 'react-router-dom';
 
 import Clock from './Clock';
@@ -8,6 +8,8 @@ import NotFound from './404';
 import Spotify from './Spotify';
 import FriendsRandom from './discover/FriendsRandom';
 import Chat from '../chat/Chat';
+
+import UsernameGenerator from 'username-generator';
 
 import '../styles/App.css';
 
@@ -33,6 +35,16 @@ const Menu = () => {
 }
 
 const App = () => {
+
+    useEffect(() => {
+        let foundUsername = localStorage.getItem('username');
+
+        if(!foundUsername) {
+            let anotherName = UsernameGenerator.generateUsername("-");
+            localStorage.setItem('username', JSON.stringify(anotherName));
+        }
+    })
+
     return (
         <BrowserRouter>
             <div className='app-component'>

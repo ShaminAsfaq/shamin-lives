@@ -1,21 +1,30 @@
 import React from 'react';
+import UsernameGenerator from 'username-generator';
+
+
 import '../styles/components/Message.css';
 
-const Message = ({user, message}) => {
+const Message = ({user, message, timeStamp}) => {
     /**
-     * Getting 12 HOURS format time in JavaScript.
-     * From StackOverflow answer: https://stackoverflow.com/a/36822046/5554993
+     * username from localStorage
      */
-    let timeStamp = new Date();
-    timeStamp = timeStamp.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    let foundUsername = localStorage.getItem('username');
+
+    if(!foundUsername) {
+        let anotherName = UsernameGenerator.generateUsername("-");
+        localStorage.setItem('username', JSON.stringify(anotherName));
+    } else {
+        foundUsername = JSON.parse(foundUsername);
+    }
 
     return(
         <div className='single-message-div'>
             {
-                user==='client' &&
+                user===foundUsername &&
                 <div>
                     <div className='single-message-inner-div-client'>
                         <div>
+                            <div className='single-message-inner-div-client-user-name'>{user}</div>
                             {message}
                             <div className='single-message-inner-div-client-sub-text'>{timeStamp}</div>
                         </div>
@@ -24,9 +33,10 @@ const Message = ({user, message}) => {
             }
 
             {
-                user==='server' &&
+                user!==foundUsername &&
                 <div className='single-message-inner-div-server'>
                     <div>
+                        <div className='single-message-inner-div-server-user-name'>{user}</div>
                         {message}
                         <div className='single-message-inner-div-server-sub-text'>{timeStamp}</div>
                     </div>

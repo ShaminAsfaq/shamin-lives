@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Message from './Message';
 import MessageList from './MessageList';
 import ReactDOMServer from 'react-dom/server';
 import io from 'socket.io-client';
+import UsernameGenerator from 'username-generator';
 
 /**
  * To send notification to desktop
@@ -16,8 +17,8 @@ const Chat = () => {
     /**
      * Socket server URL
      */
-    // let SOCKET_URL = 'http://118.179.95.206:5000';
-    let SOCKET_URL = 'https://shamin-lives-server.herokuapp.com';
+    let SOCKET_URL = 'http://118.179.95.206:5000';
+    // let SOCKET_URL = 'https://shamin-lives-server.herokuapp.com';
 
     /**
      * Socket from socket.io-client
@@ -66,13 +67,38 @@ const Chat = () => {
         },
     ];
 
+    // availableMessages = [];
+    
     /**
      * Enabling state and other variables.
      */
     let isBlocked = false;   //  Emulates a blocked user.
     let [visible, updateVisible] = useState(true);  //  MessageList visibility. Works while closing the chat box.
     let [hiddenElement, updateHiddenElement] = useState([]);    //  Keeps the Chat Box to use if re-opened the closed chat box.
-    let [messageList, updateMessageList] = useState(availableMessages); //  It will take the incoming messages from the server when we start working with socket.io
+    let [messageList, updateMessageList] = useState([]); //  It will take the incoming messages from the server when we start working with socket.io
+    let [username, updateUsername] = useState('');
+
+    let [inputValue, updateInputValue] = useState('');
+    let [inputRef, updateInputRef] = useState(null);
+
+    let temporaryInputValueConcatenated = '';
+    
+
+    /**
+     * Test Ref
+     */
+    let [updatedMeetingList, setUpdatedMeetingList] = useState([]);
+    let updatedMeetingListRef = useRef(updatedMeetingList);
+    
+
+    /**
+     * UseEffect for updatedMeetingList. It takes out only the most latest version of the state
+     * from a series of Snapshot of states.
+     */
+    useEffect(() => {
+        updatedMeetingListRef.current = updatedMeetingList;
+    }, [updatedMeetingList]);
+
 
     /**
      * July 16th, 2020
@@ -85,25 +111,50 @@ const Chat = () => {
      * @param {*} event 
      */
     const onEnter = (event) => {
+        /**
+         * For some reason, updateInputValue() is not updaing the string as a string. It's only tracking
+         * one single character. Use 'temporaryInputValueConcatenated' temporarily. Need to be changed.
+         */
         if(event.which === 13){
+            // console.log(temporaryInputValueConcatenated);
             onSendMessage();
             event.target.dispatchEvent(new Event("submit", {cancelable: true}));
             event.preventDefault(); // Prevents the addition of a new line in the text field (not needed in a lot of cases)
+        } else {
+            temporaryInputValueConcatenated = temporaryInputValueConcatenated + event.key;
+            // console.log(event.key)
+            // if(event.target.value.length!==0) {
+            //     console.log(event.target.value)
+            // }
         }
     }
 
+
+    let pushNotification = (title, subtitle, message, imgURL, duration) => {
+        addNotification({
+            title,
+            subtitle,
+            message,
+            theme: 'red',
+            native: true, // when using native, your OS will handle theming.
+            icon: imgURL,
+            duration
+        });
+    }
+
     /**
-     * Making the scroller go down at the bottom of the MessageList to view the latest message everytime.
+     * UseEffect for inputRef
      */
-    const scrollDownToLatest = () => {
-        var messages = document.getElementsByClassName("message-list-div")[0];
-        if(messages){
-            messages.scrollTop = messages.scrollHeight;
+    useEffect(() => {
+        if(inputRef){
+            inputRef.addEventListener("keypress", onEnter);
+            inputRef.focus();
         }
-    }
+    }, [inputRef])
+
 
     /**
-     * Works as ComponentDidMount() and ComponentDidUpdate() of a class based React Component.
+     * UseEffect for MessageList
      */
     useEffect(() => {
         /**
@@ -111,43 +162,61 @@ const Chat = () => {
          */
         // console.log(socket.connected);
 
-        socket.on('connect', () => {
-            // console.log(socket.connected);
-            addNotification({
-                title: 'Connected',
-                subtitle: `Congratulations`,
-                message: `Socket connection successful`,
-                theme: 'red',
-                native: true, // when using native, your OS will handle theming.
-                icon: 'https://pbs.twimg.com/profile_images/470682672235151360/vI0ZZlhZ_400x400.png',
-                duration: 10000
-            });
+        let socketIOlogo = 'https://pbs.twimg.com/profile_images/470682672235151360/vI0ZZlhZ_400x400.png';
+        socket.on('connect', (data) => {
+            // console.log(data);
+            // pushNotification('Connected', 'Socket successful', 'Connected to socket server', socketIOlogo, 1000);
         });
+
+        socket.on('message', (data) => {
+            // console.log(data)
+            // console.log([...messageList, data]);
+            let currentMessageList = updatedMeetingListRef.current;
+            setUpdatedMeetingList([...currentMessageList, data]);
+            // console.log(updatedMeetingListRef.current)
+        })
+
+        socket.on('welcome', (data) => {
+            let tempArray = [];
+            
+            data = Object.entries(data);            
+            data.map(item => {
+                tempArray.push(item[1])
+            })
+            tempArray = tempArray[0];
+
+            let currentMessageList = updatedMeetingListRef.current;
+            setUpdatedMeetingList([...currentMessageList, tempArray]);
+
+            console.log(updatedMeetingListRef.current)
+        })
 
         socket.on('disconnect', () => {
-            console.log(socket.connected);
-
-            // socket.disconnect();
+            // console.log(socket.connected);
+            socket.disconnect();
         });
 
+    }, [messageList])
 
-        /**
-         * Scroll to the bottom of the Message List
-         */
-        scrollDownToLatest();
 
+    /**
+     * Works as ComponentDidMount() and ComponentDidUpdate() of a class based React Component.
+     */
+    useEffect(() => {
         /**
-         * Binding eventListener with the ENTER key to Send message if pressed.
-         * 
-         * isBlocked value is to showcase if user is blocked from the chat box. In case of TRUE,
-         * the chat box won't render. No point of attempting to add an event listener to UNDEFINED.
+         * username from localStorage
          */
-        let chatBox = document.getElementsByClassName("chat-input-text-area")[0];
-        if(!isBlocked && chatBox) {
-            chatBox.addEventListener("keypress", onEnter);
+        let foundUsername = localStorage.getItem('username');
+
+        if(!foundUsername) {
+            let anotherName = UsernameGenerator.generateUsername("-");
+            localStorage.setItem('username', JSON.stringify(anotherName));
+            updateUsername(anotherName);
+        } else {            
+            foundUsername = JSON.parse(foundUsername);            
+            updateUsername(foundUsername);
         }
-
-    });
+    }, []);
 
     /**
      * Removing any spaces from the beginning and the end of a message.
@@ -178,58 +247,50 @@ const Chat = () => {
         return result;
     }
 
+        /**
+         * Getting 12 HOURS format time in JavaScript.
+         * From StackOverflow answer: https://stackoverflow.com/a/36822046/5554993
+         */
+        let getTimeIn12HourClock = () => {
+            let timeStamp = new Date();
+            return timeStamp.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+        }
+
     /**
      * Executes if SEND button clicked. Also, if ENTER is pressed.
      * It sends the message to the server.
      */
     let onSendMessage = () => {
-        let text = document.getElementsByClassName('chat-input-text-area')[0].value;
+        let text = temporaryInputValueConcatenated;
+        // console.log(text)
         text = trimSpaceOnlyFromStartAndEnd(text);
 
         if(text.length>0) {
-            /**
-             * Updating the state attribte that contains all the messages.
-             * THis is not good, and shouldn't be done.
-             */
-            // let newMessage = {
-            //     user: 'client',
-            //     message: text
-            // };
-            // updateMessageList([...messageList, newMessage]);
-
-
-            /**
-             * Instead, adding new child to the MessageList div when sent.
-             */
-            let list = document.getElementsByClassName('message-list-div')[0];
-            let node = <Message user={'client'} message={text}/>;
-            node = ReactDOMServer.renderToStaticMarkup(node);
-            var div = document.createElement('div');
-            div.innerHTML = node.trim();
-            node = div.firstChild;
-            list.appendChild(node);
-
-            scrollDownToLatest();
+            socket.emit('message', {user: username, message: text, timeStamp: getTimeIn12HourClock()});
         }
 
-        document.getElementsByClassName('chat-input-text-area')[0].value = '';
-        document.getElementsByClassName('chat-input-text-area')[0].focus();
+        temporaryInputValueConcatenated = '';
+        updateInputValue('');
     };
 
     /**
      * Closes the chat box down.
      */
     let onCloseChatBox = () => {
-        let foundDiv = document.getElementsByClassName('chat-window')
+        /**
+         * Change it USING ref
+         */
 
-        if(foundDiv[0]) {
-            let foundVisibility = document.getElementsByClassName('chat-window')[0].style.visibility;
-            updateVisible(foundVisibility==='hidden'?true:false);
-            updateHiddenElement(foundDiv[0]);
-        } else {
-            let foundVisibility = hiddenElement.style.visibility;
-            updateVisible(foundVisibility==='hidden'?false:true);
-        }
+        // let foundDiv = document.getElementsByClassName('chat-window')
+
+        // if(foundDiv[0]) {
+        //     let foundVisibility = document.getElementsByClassName('chat-window')[0].style.visibility;
+        //     updateVisible(foundVisibility==='hidden'?true:false);
+        //     updateHiddenElement(foundDiv[0]);
+        // } else {
+        //     let foundVisibility = hiddenElement.style.visibility;
+        //     updateVisible(foundVisibility==='hidden'?false:true);
+        // }
     }
 
     return(
@@ -245,13 +306,18 @@ const Chat = () => {
                             </div>
                         </div>
                     </div>
-                    <MessageList availableMessages={messageList}/>
+                    <MessageList availableMessages={updatedMeetingList}/>
                     {
                         !isBlocked &&
                         <div className="ui big icon input chat-input">
                             <textarea 
+                                ref={(input) => { updateInputRef(input) }}
                                 className='chat-input-text-area' 
-                                placeholder='Your message..'
+                                placeholder={`Your are: ${username}`}
+                                value={inputValue}
+                                onChange={(e) => {
+                                    updateInputValue(e.target.value)
+                                }}
                             >
                             </textarea>
                             {

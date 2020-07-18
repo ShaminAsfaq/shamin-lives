@@ -12,8 +12,6 @@
     color: black;
 }
 
-/* Message from client, LEFT ARROW */
-
 .single-message-inner-div-client-sub-text {
 	font-size: 0.7em;
 	position: relative;
@@ -42,6 +40,19 @@
     -o-user-select: none;
     user-select: none;
 }
+
+.single-message-inner-div-client-user-name, .single-message-inner-div-server-user-name {
+	font-size: 0.7em;
+	position: relative;
+	color: gray;
+	/* padding-top: 90%; */
+	/* margin-left: 90%; */
+	/* margin-bottom: 1%; */
+	float: left;
+}
+
+
+/* Message from client, LEFT ARROW */
 
 .single-message-inner-div-client {
     margin-right: 40%;

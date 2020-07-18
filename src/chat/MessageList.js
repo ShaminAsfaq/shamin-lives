@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Message from './Message';
 
 const MessageList = (props) => {
+    let [messageListRef, updateMessageListRef] = useState(null);
     let availableMessages = props.availableMessages;
+
+    useEffect(() => {
+        if(messageListRef) {
+            messageListRef.scrollTop = messageListRef.scrollHeight;
+        }
+    }, [availableMessages])
+
+    // console.log(availableMessages)
 
     let focusOnTextArea = () => {
         /**
@@ -13,10 +22,14 @@ const MessageList = (props) => {
     }
 
     return (
-        <div className='message-list-div' onClick={focusOnTextArea}>
+        <div 
+            className='message-list-div' 
+            onClick={focusOnTextArea}
+            ref={(input) => { updateMessageListRef(input) }}
+        >
             {
                 availableMessages.map(
-                    ({user, message}, i) => <Message key={i} user={user} message={message}/>
+                    ({user, message, timeStamp}, i) => <Message key={i} user={user} message={message} timeStamp={timeStamp}/>
                 )
             }
         </div>

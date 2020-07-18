@@ -5,11 +5,17 @@ const UserJoinedOrLeft = ({user, joined, left}) => {
         <div className='user-joined-or-left'>
         {
             joined &&
-            <div>{user} joined</div>
+            <div>
+                {user}
+                <span className='joined-chat'> joined</span>
+            </div>
         }
         {
             left &&
-            <div>{user} left</div>
+            <div>
+                {user}
+                <span className='left-chat'> left</span>
+            </div>
         }
         </div>
     );

@@ -33,7 +33,7 @@ const MessageList = (props) => {
             {
                 availableMessages.map(
                     (item, i) => {
-                        let {user, joined, left, socketId,  message, timeStamp} = item;
+                        let {user, joined, left, message, timeStamp} = item;
 
                         if(joined || left) {
                             let username = JSON.parse(localStorage.getItem('username'));

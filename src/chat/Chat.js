@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import MessageList from './MessageList';
 import io from 'socket.io-client';
 import UsernameGenerator from 'username-generator';
-import axios from 'axios';
 
 /**
  * To send notification to desktop
@@ -79,6 +78,8 @@ const Chat = () => {
     let [inputValue, updateInputValue] = useState('');
     let [inputRef, updateInputRef] = useState(null);
 
+    let notify = new Audio('/media/beep.mp3');
+
     /**
      * Test Ref
      */
@@ -146,7 +147,15 @@ const Chat = () => {
      */
     useEffect(() => {
         if(username.length>0) {
-            console.log(username);
+            // console.log(username);
+
+            /**
+             * When connects
+             */
+            socket.on('connect', (data) => {
+                // pushNotification('Connected', 'Socket successful', 'Connected to socket server', socketIOlogo, 1000);
+            });
+
             /**
              * Joining the chat
              */
@@ -162,6 +171,22 @@ const Chat = () => {
                 // console.log(data)
                 let currentMessageList = updatedMeetingListRef.current;
                 setUpdatedMeetingList([...currentMessageList, data]);
+            });
+
+            socket.on('message', (data) => {
+                // console.log(data);
+                // console.log(username);
+                if(data.user!==username){
+                    notify.play();
+                }
+                let currentMessageList = updatedMeetingListRef.current;
+                setUpdatedMeetingList([...currentMessageList, data]);
+                // console.log(updatedMeetingListRef.current)
+            })
+
+            socket.on('disconnect', () => {
+                // console.log('I am here')
+                socket.disconnect();
             });
         }
     }, [username])
@@ -181,32 +206,36 @@ const Chat = () => {
             // pushNotification('Connected', 'Socket successful', 'Connected to socket server', socketIOlogo, 1000);
         });
 
-        socket.on('message', (data) => {
-            // console.log(data);
-            let currentMessageList = updatedMeetingListRef.current;
-            setUpdatedMeetingList([...currentMessageList, data]);
-            // console.log(updatedMeetingListRef.current)
-        })
+        // socket.on('message', (data) => {
+        //     console.log(data);
+        //     console.log(username);
+        //     if(data.user!==username){
+        //         notify.play();
+        //     }
+        //     let currentMessageList = updatedMeetingListRef.current;
+        //     setUpdatedMeetingList([...currentMessageList, data]);
+        //     // console.log(updatedMeetingListRef.current)
+        // })
 
-        socket.on('welcome', (data) => {
-            let tempArray = [];
+        // socket.on('welcome', (data) => {
+        //     let tempArray = [];
             
-            data = Object.entries(data);            
-            data.map(item => {
-                tempArray.push(item[1])
-            })
-            tempArray = tempArray[0];
+        //     data = Object.entries(data);            
+        //     data.map(item => {
+        //         tempArray.push(item[1])
+        //     })
+        //     tempArray = tempArray[0];
 
-            let currentMessageList = updatedMeetingListRef.current;
-            setUpdatedMeetingList([...currentMessageList, tempArray]);
+        //     let currentMessageList = updatedMeetingListRef.current;
+        //     setUpdatedMeetingList([...currentMessageList, tempArray]);
 
-            // console.log(updatedMeetingListRef.current)
-        })
+        //     // console.log(updatedMeetingListRef.current)
+        // })
 
-        socket.on('disconnect', () => {
-            // console.log('I am here')
-            socket.disconnect();
-        });
+        // socket.on('disconnect', () => {
+        //     // console.log('I am here')
+        //     socket.disconnect();
+        // });
 
     }, [messageList])
 

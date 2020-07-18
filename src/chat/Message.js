@@ -1,7 +1,6 @@
 import React from 'react';
 import UsernameGenerator from 'username-generator';
 
-
 import '../styles/components/Message.css';
 
 const Message = ({user, message, timeStamp}) => {

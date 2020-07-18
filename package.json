@@ -19,7 +19,8 @@
     "react-scroll-to-bottom": "^3.0.0",
     "rgbaster": "^2.1.1",
     "socket.io-client": "^2.3.0",
-    "username-generator": "^1.1.0"
+    "username-generator": "^1.1.0",
+    "uuid": "^8.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

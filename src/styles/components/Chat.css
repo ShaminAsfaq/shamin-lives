@@ -145,12 +145,12 @@
 }
 
 .left-chat {
-    color: red;
+    color: #f25779;
     font-weight: bold;
 }
 
 .joined-chat {
-    color: blue;
+    color: rgb(30,144,255);
     font-weight: bold;
 }
 

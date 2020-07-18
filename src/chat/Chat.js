@@ -203,7 +203,7 @@ const Chat = () => {
         })
 
         socket.on('disconnect', () => {
-            console.log('I am here')
+            // console.log('I am here')
             socket.disconnect();
         });
 
@@ -212,8 +212,11 @@ const Chat = () => {
 
     /**
      * Works as ComponentDidMount() and ComponentDidUpdate() of a class based React Component.
+     * 
+     * Running once, as the following empty array is never gonna change.
      */
     useEffect(() => {
+        // console.log(window.location.hostname)
         /**
          * username from localStorage
          */

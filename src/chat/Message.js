@@ -22,10 +22,14 @@ const Message = ({user, message, timeStamp}) => {
                 user===foundUsername &&
                 <div>
                     <div className='single-message-inner-div-client'>
+                        <div className='single-message-inner-div-client-user-name'>
+                        {user}
+                        <span className='single-message-inner-div-client-sub-text'>
+                            {timeStamp}
+                        </span>
+                        </div>
                         <div>
-                            <div className='single-message-inner-div-client-user-name'>{user}: </div>
                             {message}
-                            <div className='single-message-inner-div-client-sub-text'>{timeStamp}</div>
                         </div>
                     </div>
                 </div>
@@ -34,10 +38,14 @@ const Message = ({user, message, timeStamp}) => {
             {
                 user!==foundUsername &&
                 <div className='single-message-inner-div-server'>
+                    <div className='single-message-inner-div-server-user-name'>
+                        {user}
+                        <span className='single-message-inner-div-server-sub-text'>
+                            {timeStamp}
+                        </span>
+                    </div>
                     <div>
-                        <div className='single-message-inner-div-server-user-name'>{user}: </div>
                         {message}
-                        <div className='single-message-inner-div-server-sub-text'>{timeStamp}</div>
                     </div>
                 </div>
             }

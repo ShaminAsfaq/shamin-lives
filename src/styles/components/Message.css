@@ -12,44 +12,32 @@
     color: black;
 }
 
-.single-message-inner-div-client-sub-text {
+.single-message-inner-div-client-sub-text, .single-message-inner-div-server-sub-text {
 	font-size: 0.7em;
 	position: relative;
 	color: gray;
-	margin-top: 1%;
+	/* margin-top: -1.0%; */
+	padding-left: 2%;
 
 	/* Making the time tag unselectable  */
 	-moz-user-select: -moz-none;
     -khtml-user-select: none;
     -webkit-user-select: none;
     -o-user-select: none;
-    user-select: none;
-}
-
-.single-message-inner-div-server-sub-text {
-	font-size: 0.7em;
-	position: relative;
-	color: #a01c39;
-	color: gray;
-	margin-top: 1%;
-
-	/* Making the time tag unselectable */
-	-moz-user-select: -moz-none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+	user-select: none;
+	
+	/* float: right; */
 }
 
 .single-message-inner-div-client-user-name, .single-message-inner-div-server-user-name {
 	font-size: 0.7em;
 	position: relative;
-	color: gray;
+	color: purple;
 	/* padding-top: 90%; */
 	/* margin-left: 90%; */
 	/* margin-bottom: 1%; */
-	padding-right: 2%;
-	float: left;
+	/* padding-right: 2%; */
+	/* float: right; */
 }
 
 

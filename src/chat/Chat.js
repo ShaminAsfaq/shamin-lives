@@ -13,7 +13,6 @@ import addNotification, { Notifications } from 'react-push-notification';
 import '../styles/components/Chat.css';
 
 const Chat = () => {
-
     /**
      * Socket server URL
      */

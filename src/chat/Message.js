@@ -3,7 +3,7 @@ import UsernameGenerator from 'username-generator';
 
 import '../styles/components/Message.css';
 
-const Message = ({user, message, timeStamp}) => {
+const Message = ({user, message, timeStamp, avatar}) => {
     /**
      * username from localStorage
      */
@@ -20,7 +20,10 @@ const Message = ({user, message, timeStamp}) => {
         <div className='single-message-div'>
             {
                 user===foundUsername &&
-                <div>
+                <span style={{display: 'flex'}}>
+                    <div className='user-avatar'>
+                        <img className="ui avatar image" src={avatar}/>
+                    </div>
                     <div className='single-message-inner-div-client'>
                         <div className='single-message-inner-div-client-user-name'>
                         {user}
@@ -32,22 +35,27 @@ const Message = ({user, message, timeStamp}) => {
                             {message}
                         </div>
                     </div>
-                </div>
+                </span>
             }
 
             {
                 user!==foundUsername &&
-                <div className='single-message-inner-div-server'>
-                    <div className='single-message-inner-div-server-user-name'>
-                        {user}
-                        <span className='single-message-inner-div-server-sub-text'>
-                            {timeStamp}
-                        </span>
+                <span style={{display: 'flex', flexDirection: 'row-reverse'}}>
+                    <div className='user-avatar'>
+                        <img className="ui avatar image" src={avatar}/>
                     </div>
-                    <div>
-                        {message}
+                    <div className='single-message-inner-div-server'>
+                        <div className='single-message-inner-div-server-user-name'>
+                            {user}
+                            <span className='single-message-inner-div-server-sub-text'>
+                                {timeStamp}
+                            </span>
+                        </div>
+                        <div>
+                            {message}
+                        </div>
                     </div>
-                </div>
+                </span>
             }
         </div>
     );

@@ -35,16 +35,6 @@ const Menu = () => {
 }
 
 const App = () => {
-
-    useEffect(() => {
-        let foundUsername = localStorage.getItem('username');
-
-        if(!foundUsername) {
-            let anotherName = UsernameGenerator.generateUsername("-");
-            localStorage.setItem('username', JSON.stringify(anotherName));
-        }
-    })
-
     return (
         <BrowserRouter>
             <div className='app-component'>

@@ -13,6 +13,7 @@
 }
 
 .single-message-inner-div-client-sub-text, .single-message-inner-div-server-sub-text {
+	min-width: max-content;
 	font-size: 0.7em;
 	position: relative;
 	color: gray;
@@ -40,11 +41,16 @@
 	/* float: right; */
 }
 
+.user-avatar {
+	min-width: max-content;
+}
+
 
 /* Message from client, LEFT ARROW */
 
 .single-message-inner-div-client {
-    margin-right: 40%;
+	min-width: 50%;
+    /* margin-right: 40%; */
 	position: relative;
 	background: #add8e6;
 	background: rgba(56, 164, 160, 0.3);
@@ -71,34 +77,35 @@
 }
 
 .single-message-inner-div-client:after, .single-message-inner-div-client:before {
-	right: 100%;
+	/* right: 100%;
 	top: 50%;
 	border: solid transparent;
 	content: " ";
 	position: absolute;
-	pointer-events: none;
+	pointer-events: none; */
 }
 
 .single-message-inner-div-client:after {
-	border-color: rgba(136, 183, 213, 0);
+	/* border-color: rgba(136, 183, 213, 0);
 	border-right-color: #add8e6;
 	border-right-color: rgba(56, 164, 160, 0.3);
 	border-width: 10px;
-	margin-top: -10px;
+	margin-top: -10px; */
 }
 
 .single-message-inner-div-client:before {
-	border-color: rgba(194, 225, 245, 0);
+	/* border-color: rgba(194, 225, 245, 0); */
 	/* border-right-color: rgb(245, 245, 245); */
-	border-width: 16px;
-	margin-top: -16px;
+	/* border-width: 16px;
+	margin-top: -16px; */
 }
 
 
 /* Message from server, RIGHT ARROW */
 
 .single-message-inner-div-server {
-    margin-left: 40%;
+	min-width: 50%;
+    margin-right: 1%;
 	position: relative;
 	background: #f25779;
 	background: rgb(255, 247, 229);
@@ -126,28 +133,28 @@
 }
 
 .single-message-inner-div-server:after, .single-message-inner-div-server:before {
-	left: 100%;
+	/* left: 100%;
 	top: 50%;
 	border: solid transparent;
 	content: " ";
 	position: absolute;
-	pointer-events: none;
+	pointer-events: none; */
 }
 
 .single-message-inner-div-server:after {
-	border-color: rgba(136, 183, 213, 0);
+	/* border-color: rgba(136, 183, 213, 0);
 	border-left-color: #f25779;
 	border-left-color: rgb(255, 247, 229);
 	border-left-color: rgb(236, 200, 57, 0.3);
 	border-width: 10px;
-	margin-top: -10px;
+	margin-top: -10px; */
 }
 
 .single-message-inner-div-server:before {
-	border-color: rgba(194, 225, 245, 0);
+	/* border-color: rgba(194, 225, 245, 0); */
 	/* border-left-color: rgb(245, 245, 245); */
-	border-width: 16px;
-	margin-top: -16px;
+	/* border-width: 16px;
+	margin-top: -16px; */
 }
 
 .message-list-div > div {

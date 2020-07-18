@@ -33,7 +33,7 @@ const MessageList = (props) => {
             {
                 availableMessages.map(
                     (item, i) => {
-                        let {user, joined, left, message, timeStamp} = item;
+                        let {user, joined, avatar, left, message, timeStamp} = item;
 
                         if(joined || left) {
                             let username = JSON.parse(localStorage.getItem('username'));
@@ -44,7 +44,7 @@ const MessageList = (props) => {
                                 return <UserJoinedOrLeft key={uuidv4()} user={user} joined={joined} left={left}/>
                             }
                         } else {
-                            return <Message key={i} user={user} message={message} timeStamp={timeStamp}/>
+                            return <Message key={i} user={user} message={message} timeStamp={timeStamp} avatar={avatar}/>
                         }
                     }
                 )

@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Message from './Message';
 import MessageList from './MessageList';
-import ReactDOMServer from 'react-dom/server';
 import io from 'socket.io-client';
 import UsernameGenerator from 'username-generator';
+import axios from 'axios';
 
 /**
  * To send notification to desktop
@@ -22,7 +21,7 @@ const Chat = () => {
     /**
      * Socket from socket.io-client
      */
-    let socket = io(SOCKET_URL);
+    let socket = io.connect(SOCKET_URL);
 
     /**
      * Dummy messages for the purpose of showcasing.
@@ -147,13 +146,14 @@ const Chat = () => {
      */
     useEffect(() => {
         if(username.length>0) {
-            // console.log(username);
+            console.log(username);
             /**
              * Joining the chat
              */
             socket.emit('joined', {user: username});
 
             socket.on('joined', (data) => {
+                // console.log(data)
                 let currentMessageList = updatedMeetingListRef.current;
                 setUpdatedMeetingList([...currentMessageList, data]);    
             });
@@ -182,6 +182,7 @@ const Chat = () => {
         });
 
         socket.on('message', (data) => {
+            // console.log(data);
             let currentMessageList = updatedMeetingListRef.current;
             setUpdatedMeetingList([...currentMessageList, data]);
             // console.log(updatedMeetingListRef.current)

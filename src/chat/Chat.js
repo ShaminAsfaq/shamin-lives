@@ -81,9 +81,6 @@ const Chat = () => {
     let [inputValue, updateInputValue] = useState('');
     let [inputRef, updateInputRef] = useState(null);
 
-    let temporaryInputValueConcatenated = '';
-    
-
     /**
      * Test Ref
      */
@@ -113,19 +110,12 @@ const Chat = () => {
     const onEnter = (event) => {
         /**
          * For some reason, updateInputValue() is not updaing the string as a string. It's only tracking
-         * one single character. Use 'temporaryInputValueConcatenated' temporarily. Need to be changed.
+         * one single character. Now using InputRef to get the value.
          */
         if(event.which === 13){
-            // console.log(temporaryInputValueConcatenated);
             onSendMessage();
             event.target.dispatchEvent(new Event("submit", {cancelable: true}));
             event.preventDefault(); // Prevents the addition of a new line in the text field (not needed in a lot of cases)
-        } else {
-            temporaryInputValueConcatenated = temporaryInputValueConcatenated + event.key;
-            // console.log(event.key)
-            // if(event.target.value.length!==0) {
-            //     console.log(event.target.value)
-            // }
         }
     }
 
@@ -154,6 +144,31 @@ const Chat = () => {
 
 
     /**
+     * UseEffect for username
+     */
+    useEffect(() => {
+        if(username.length>0) {
+            // console.log(username);
+            /**
+             * Joining the chat
+             */
+            socket.emit('joined', {user: username});
+
+            socket.on('joined', (data) => {
+                let currentMessageList = updatedMeetingListRef.current;
+                setUpdatedMeetingList([...currentMessageList, data]);    
+            });
+
+            socket.on('left', (data) => {
+                // console.log(data)
+                let currentMessageList = updatedMeetingListRef.current;
+                setUpdatedMeetingList([...currentMessageList, data]);
+            });
+        }
+    }, [username])
+
+
+    /**
      * UseEffect for MessageList
      */
     useEffect(() => {
@@ -164,13 +179,10 @@ const Chat = () => {
 
         let socketIOlogo = 'https://pbs.twimg.com/profile_images/470682672235151360/vI0ZZlhZ_400x400.png';
         socket.on('connect', (data) => {
-            // console.log(data);
             // pushNotification('Connected', 'Socket successful', 'Connected to socket server', socketIOlogo, 1000);
         });
 
         socket.on('message', (data) => {
-            // console.log(data)
-            // console.log([...messageList, data]);
             let currentMessageList = updatedMeetingListRef.current;
             setUpdatedMeetingList([...currentMessageList, data]);
             // console.log(updatedMeetingListRef.current)
@@ -188,11 +200,11 @@ const Chat = () => {
             let currentMessageList = updatedMeetingListRef.current;
             setUpdatedMeetingList([...currentMessageList, tempArray]);
 
-            console.log(updatedMeetingListRef.current)
+            // console.log(updatedMeetingListRef.current)
         })
 
         socket.on('disconnect', () => {
-            // console.log(socket.connected);
+            console.log('I am here')
             socket.disconnect();
         });
 
@@ -261,15 +273,13 @@ const Chat = () => {
      * It sends the message to the server.
      */
     let onSendMessage = () => {
-        let text = temporaryInputValueConcatenated;
+        let text = inputRef.value;
         // console.log(text)
         text = trimSpaceOnlyFromStartAndEnd(text);
 
         if(text.length>0) {
             socket.emit('message', {user: username, message: text, timeStamp: getTimeIn12HourClock()});
         }
-
-        temporaryInputValueConcatenated = '';
         updateInputValue('');
     };
 

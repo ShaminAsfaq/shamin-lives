@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import MessageList from './MessageList';
 import io from 'socket.io-client';
 import UsernameGenerator from 'username-generator';
-import axios from 'axios';
+import _ from 'lodash'
+
 
 /**
  * To send notification to desktop
@@ -324,9 +325,33 @@ const Chat = () => {
 
     let onKeyDown = debounce((event) => {
         if (event.which!==13) {
+
+            if(event.which===186) {
+                console.log('COLON');
+            }
+
             socket.emit('typing', {user: username, typing: true})
         }
     }, 100)
+
+
+    let results = [{title: ':scream:'}, {title: ':smiley:'}];
+    let isLoading, value;
+
+    let handleResultSelect = (e, { result }) => this.setState({ value: result.title })
+
+    let handleSearchChange = (e, { value }) => {
+        isLoading = true;
+  
+      setTimeout(() => {
+  
+        const re = new RegExp(_.escapeRegExp(value, 'i'))
+        const isMatch = (result) => re.test(result.title)
+  
+          isLoading= false;
+          results= _.filter(results, isMatch)
+      }, 300)
+    }
 
 
     return(

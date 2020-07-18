@@ -1,6 +1,9 @@
 import React from 'react';
 import UsernameGenerator from 'username-generator';
 
+import Emoji, { Emojione } from 'react-emoji-render';
+
+
 import '../styles/components/Message.css';
 
 const Message = ({user, message, timeStamp, avatar}) => {
@@ -32,7 +35,10 @@ const Message = ({user, message, timeStamp, avatar}) => {
                         </span>
                         </div>
                         <div>
-                            {message}
+                            {
+                                // message
+                            }
+                            <Emojione text={message}/>
                         </div>
                     </div>
                 </span>
@@ -52,7 +58,10 @@ const Message = ({user, message, timeStamp, avatar}) => {
                             </span>
                         </div>
                         <div>
-                            {message}
+                            {
+                                // message
+                            }
+                            <Emojione text={message}/>
                         </div>
                     </div>
                 </span>
@@ -64,18 +73,4 @@ const Message = ({user, message, timeStamp, avatar}) => {
 
 export {
     Message as default
-}
-
-
-
-
-
-{
-    // Old Return Value of Message Component:
-
-    // <div className='single-message-div'>
-    //     <span className='single-message-span'>
-    //         abracadabracabracadabracabracadabracabracadabracabracadabracabracadabracabracadabracabracadabrac
-    //     </span>
-    // </div>
 }

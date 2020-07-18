@@ -7,14 +7,13 @@ import { v4 as uuidv4 } from 'uuid';
 const MessageList = (props) => {
     let [messageListRef, updateMessageListRef] = useState(null);
     let availableMessages = props.availableMessages;
+    let typing = props.typing;
 
     useEffect(() => {
         if(messageListRef) {
             messageListRef.scrollTop = messageListRef.scrollHeight;
         }
     }, [availableMessages])
-
-    // console.log(availableMessages)
 
     let focusOnTextArea = () => {
         /**
@@ -48,6 +47,12 @@ const MessageList = (props) => {
                         }
                     }
                 )
+            }
+            {
+                typing &&
+                <div className='user-is-typing-message'>
+                    Someone is typing...
+                </div>
             }
         </div>
     );

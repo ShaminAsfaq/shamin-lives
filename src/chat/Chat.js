@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import MessageList from './MessageList';
 import io from 'socket.io-client';
 import UsernameGenerator from 'username-generator';
+import axios from 'axios';
 
 /**
  * To send notification to desktop
@@ -14,8 +15,8 @@ const Chat = () => {
     /**
      * Socket server URL
      */
-    // let SOCKET_URL = 'http://118.179.95.206:5000';
-    let SOCKET_URL = 'https://shamin-lives-server.herokuapp.com';
+    let SOCKET_URL = 'http://118.179.95.206:5000';
+    // let SOCKET_URL = 'https://shamin-lives-server.herokuapp.com';
 
     /**
      * Socket from socket.io-client
@@ -78,14 +79,15 @@ const Chat = () => {
     let [inputValue, updateInputValue] = useState('');
     let [inputRef, updateInputRef] = useState(null);
 
+    let [typing, updateTyping] = useState(false);
+
     let notify = new Audio('/media/beep.mp3');
 
     /**
-     * Test Ref
+     * Latest State of MessageListRef
      */
     let [updatedMeetingList, setUpdatedMeetingList] = useState([]);
     let updatedMeetingListRef = useRef(updatedMeetingList);
-    
 
     /**
      * UseEffect for updatedMeetingList. It takes out only the most latest version of the state
@@ -137,10 +139,11 @@ const Chat = () => {
     useEffect(() => {
         if(inputRef){
             inputRef.addEventListener("keypress", onEnter);
+            inputRef.addEventListener("keyup", onKeyUp);
+            inputRef.addEventListener("keydown", onKeyDown);
             inputRef.focus();
         }
     }, [inputRef])
-
 
     /**
      * UseEffect for username
@@ -184,60 +187,20 @@ const Chat = () => {
                 // console.log(updatedMeetingListRef.current)
             })
 
+            socket.on('typing', (data) => {
+                if(data.typing) {
+                    updateTyping(true);
+                } else {
+                    updateTyping(false);
+                }
+            })
+
             socket.on('disconnect', () => {
                 // console.log('I am here')
                 socket.disconnect();
             });
         }
     }, [username])
-
-
-    /**
-     * UseEffect for MessageList
-     */
-    useEffect(() => {
-        /**
-         * Socket connection check
-         */
-        // console.log(socket.connected);
-
-        let socketIOlogo = 'https://pbs.twimg.com/profile_images/470682672235151360/vI0ZZlhZ_400x400.png';
-        socket.on('connect', (data) => {
-            // pushNotification('Connected', 'Socket successful', 'Connected to socket server', socketIOlogo, 1000);
-        });
-
-        // socket.on('message', (data) => {
-        //     console.log(data);
-        //     console.log(username);
-        //     if(data.user!==username){
-        //         notify.play();
-        //     }
-        //     let currentMessageList = updatedMeetingListRef.current;
-        //     setUpdatedMeetingList([...currentMessageList, data]);
-        //     // console.log(updatedMeetingListRef.current)
-        // })
-
-        // socket.on('welcome', (data) => {
-        //     let tempArray = [];
-            
-        //     data = Object.entries(data);            
-        //     data.map(item => {
-        //         tempArray.push(item[1])
-        //     })
-        //     tempArray = tempArray[0];
-
-        //     let currentMessageList = updatedMeetingListRef.current;
-        //     setUpdatedMeetingList([...currentMessageList, tempArray]);
-
-        //     // console.log(updatedMeetingListRef.current)
-        // })
-
-        // socket.on('disconnect', () => {
-        //     // console.log('I am here')
-        //     socket.disconnect();
-        // });
-
-    }, [messageList])
 
 
     /**
@@ -335,6 +298,37 @@ const Chat = () => {
         // }
     }
 
+    /**
+     * Answer from: https://stackoverflow.com/a/57763036/5554993
+     * 
+     * The following two methods send socket server a signal that user has stopped typing.
+     * 
+     * @param {*} callback 
+     * @param {*} wait 
+     */
+    let debounce = (callback, wait) => {
+        let timeout;
+        return (...args) => {
+            const context = this;
+            clearTimeout(timeout);
+            timeout = setTimeout(() => callback.apply(context, args), wait);
+        };
+    }
+
+    let onKeyUp = debounce(() => {
+        // code you would like to run 1000ms after the keyup event has stopped firing
+        // further keyup events reset the timer, as expected
+        socket.emit('typing', {user: username, typing: false});
+        // console.log('This is some Text');
+    }, 750);
+
+    let onKeyDown = debounce((event) => {
+        if (event.which!==13) {
+            socket.emit('typing', {user: username, typing: true})
+        }
+    }, 100)
+
+
     return(
         <div className='chat-one-above-all'>
             {
@@ -348,7 +342,7 @@ const Chat = () => {
                             </div>
                         </div>
                     </div>
-                    <MessageList availableMessages={updatedMeetingList}/>
+                    <MessageList availableMessages={updatedMeetingList} typing={typing}/>
                     {
                         !isBlocked &&
                         <div className="ui big icon input chat-input">

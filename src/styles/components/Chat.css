@@ -43,6 +43,7 @@
 }
 
 .chat-box-head {
+    /* position: relative; */
     min-height: 10%;
     /* background-color: #e8c70e; */
     background-color: #f25779;
@@ -60,6 +61,10 @@
     border-radius: 25px;
 }
 
+.user-is-typing-message {
+    text-align: center;
+    font-weight: bold;
+}
 
 .message-list-div {
     min-height: 60%;

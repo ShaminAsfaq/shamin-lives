@@ -127,7 +127,7 @@ const Chat = () => {
             socket.emit('get-temp-messages', {user: username});
             socket.on('get-temp-messages', (data) => {
                 let socketIOlogo = '/media/chat.png';
-                pushNotification('Connected', 'Socket successful', 'Welcome to the chat!', socketIOlogo, 1000);
+                pushNotification('Connected', 'Socket successful', 'Welcome to the chat!', socketIOlogo, 2000);
                 // console.log(data);
                 setUpdatedMeetingList(data);
             });

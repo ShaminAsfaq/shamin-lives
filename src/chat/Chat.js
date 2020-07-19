@@ -110,14 +110,6 @@ const Chat = () => {
         if(username.length>0) {
 
             // console.log(username);
-
-            /**
-             * When connects
-             */
-            socket.on('connect', (data) => {
-                // pushNotification('Connected', 'Socket successful', 'Connected to socket server', socketIOlogo, 1000);
-            });
-
             /**
              * Joining the chat
              */
@@ -127,6 +119,17 @@ const Chat = () => {
                 // console.log(data)
                 let currentMessageList = updatedMeetingListRef.current;
                 setUpdatedMeetingList([...currentMessageList, data]);    
+            });
+
+            /**
+             * When connects
+             */
+            socket.emit('get-temp-messages', {user: username});
+            socket.on('get-temp-messages', (data) => {
+                let socketIOlogo = '/media/chat.png';
+                pushNotification('Connected', 'Socket successful', 'Welcome to the chat!', socketIOlogo, 1000);
+                // console.log(data);
+                setUpdatedMeetingList(data);
             });
 
             socket.on('left', (data) => {

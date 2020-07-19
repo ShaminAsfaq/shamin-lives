@@ -2,13 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import MessageList from './MessageList';
 import io from 'socket.io-client';
 import UsernameGenerator from 'username-generator';
-import _ from 'lodash'
 
 
 /**
  * To send notification to desktop
  */
-import addNotification, { Notifications } from 'react-push-notification';
+import addNotification from 'react-push-notification';
 
 import '../styles/components/Chat.css';
 
@@ -16,57 +15,12 @@ const Chat = () => {
     /**
      * Socket server URL
      */
-    // let SOCKET_URL = 'http://118.179.95.206:5000';
-    let SOCKET_URL = 'https://shamin-lives-server.herokuapp.com';
+    let SOCKET_URL = 'http://118.179.95.206:5000';
 
     /**
      * Socket from socket.io-client
      */
-    let socket = io.connect(SOCKET_URL);
-
-    /**
-     * Dummy messages for the purpose of showcasing.
-     */
-    let availableMessages = [
-        {
-            user: 'client',
-            message: 'Sent by me.'
-        },
-        {
-            user: 'server',
-            message: 'Sent from server.'
-        },
-        {
-            user: 'server',
-            message: 'Another one sent from server.'
-        },
-        {
-            user: 'server',
-            message: 'Yet another.'
-        },
-        {
-            user: 'client',
-            message: 'I know!! Stop now.'
-        },
-        {
-            user: 'client',
-            message: 'Or I will block you.'
-        },
-        {
-            user: 'server',
-            message: 'Okay, I will stop, but only if you say you love me.'
-        },
-        {
-            user: 'client',
-            message: 'Ugh.. alright.'
-        },
-        {
-            user: 'client',
-            message: 'I hate you.'
-        },
-    ];
-
-    // availableMessages = [];
+    let socket = io.connect(SOCKET_URL, {'transports': ['websocket', 'polling']});
     
     /**
      * Enabling state and other variables.
@@ -76,6 +30,7 @@ const Chat = () => {
     let [hiddenElement, updateHiddenElement] = useState([]);    //  Keeps the Chat Box to use if re-opened the closed chat box.
     let [messageList, updateMessageList] = useState([]); //  It will take the incoming messages from the server when we start working with socket.io
     let [username, updateUsername] = useState('');
+
 
     let [inputValue, updateInputValue] = useState('');
     let [inputRef, updateInputRef] = useState(null);
@@ -150,7 +105,9 @@ const Chat = () => {
      * UseEffect for username
      */
     useEffect(() => {
+
         if(username.length>0) {
+
             // console.log(username);
 
             /**
@@ -224,6 +181,11 @@ const Chat = () => {
             foundUsername = JSON.parse(foundUsername);            
             updateUsername(foundUsername);
         }
+
+        notify.muted=true;
+        notify.play().catch(e => {
+            // console.log('failed')
+        });
     }, []);
 
     /**
@@ -255,14 +217,14 @@ const Chat = () => {
         return result;
     }
 
-        /**
-         * Getting 12 HOURS format time in JavaScript.
-         * From StackOverflow answer: https://stackoverflow.com/a/36822046/5554993
-         */
-        let getTimeIn12HourClock = () => {
-            let timeStamp = new Date();
-            return timeStamp.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-        }
+    /**
+     * Getting 12 HOURS format time in JavaScript.
+     * From StackOverflow answer: https://stackoverflow.com/a/36822046/5554993
+     */
+    let getTimeIn12HourClock = () => {
+        let timeStamp = new Date();
+        return timeStamp.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    }
 
     /**
      * Executes if SEND button clicked. Also, if ENTER is pressed.
@@ -283,6 +245,7 @@ const Chat = () => {
      * Closes the chat box down.
      */
     let onCloseChatBox = () => {
+
         /**
          * Change it USING ref
          */
@@ -333,25 +296,6 @@ const Chat = () => {
             socket.emit('typing', {user: username, typing: true})
         }
     }, 100)
-
-
-    let results = [{title: ':scream:'}, {title: ':smiley:'}];
-    let isLoading, value;
-
-    let handleResultSelect = (e, { result }) => this.setState({ value: result.title })
-
-    let handleSearchChange = (e, { value }) => {
-        isLoading = true;
-  
-      setTimeout(() => {
-  
-        const re = new RegExp(_.escapeRegExp(value, 'i'))
-        const isMatch = (result) => re.test(result.title)
-  
-          isLoading= false;
-          results= _.filter(results, isMatch)
-      }, 300)
-    }
 
 
     return(

@@ -1,7 +1,7 @@
 import React from 'react';
 import UsernameGenerator from 'username-generator';
 
-import Emoji, { Emojione } from 'react-emoji-render';
+import { Emojione } from 'react-emoji-render';
 
 
 import '../styles/components/Message.css';
@@ -25,7 +25,7 @@ const Message = ({user, message, timeStamp, avatar}) => {
                 user===foundUsername &&
                 <span style={{display: 'flex'}}>
                     <div className='user-avatar'>
-                        <img className="ui avatar image" src={avatar}/>
+                        <img alt={avatar} className="ui avatar image" src={avatar}/>
                     </div>
                     <div className='single-message-inner-div-client'>
                         <div className='single-message-inner-div-client-user-name'>
@@ -48,7 +48,7 @@ const Message = ({user, message, timeStamp, avatar}) => {
                 user!==foundUsername &&
                 <span style={{display: 'flex', flexDirection: 'row-reverse'}}>
                     <div className='user-avatar'>
-                        <img className="ui avatar image" src={avatar}/>
+                        <img alt={avatar} className="ui avatar image" src={avatar}/>
                     </div>
                     <div className='single-message-inner-div-server'>
                         <div className='single-message-inner-div-server-user-name'>

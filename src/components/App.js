@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Switch, NavLink } from 'react-router-dom';
 
 import Clock from './Clock';
 import Chronicle from './Chronicle';
 import Home from './Home';
 import NotFound from './404';
-import Spotify from './Spotify';
+// import Spotify from './Spotify';
 import FriendsRandom from './discover/FriendsRandom';
 import Chat from '../chat/Chat';
+import Conference from './PeerJS/Conference';
 
-import UsernameGenerator from 'username-generator';
+//  This dependency is useful to hide anything in the DOM from a specific browser/os etc.
+//  Look up on npmjs
+import { BrowserView, MobileView} from 'react-device-detect';
 
 import '../styles/App.css';
 
@@ -49,7 +52,14 @@ const App = () => {
                     // <Spotify />
                 }
              </div>
-             <Chat/>
+
+             <BrowserView>
+                <Chat/>
+             </BrowserView>
+             {
+                // <Conference/>
+             }
+             
         </BrowserRouter>
     );
 }

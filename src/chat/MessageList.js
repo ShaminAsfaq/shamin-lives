@@ -13,7 +13,7 @@ const MessageList = (props) => {
         if(messageListRef) {
             messageListRef.scrollTop = messageListRef.scrollHeight;
         }
-    }, [availableMessages])
+    }, [availableMessages, messageListRef])
 
     let focusOnTextArea = () => {
         /**
@@ -22,7 +22,6 @@ const MessageList = (props) => {
          */
         // document.getElementsByClassName('chat-input-text-area')[0].focus();
     }
-
     return (
         <div 
             className='message-list-div' 

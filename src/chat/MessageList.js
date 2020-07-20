@@ -31,15 +31,17 @@ const MessageList = (props) => {
             {
                 availableMessages.map(
                     (item, i) => {
-                        let {user, joined, avatar, left, message, timeStamp} = item;
+                        let {user, joined, avatar, left, message, timeStamp, region, country_name, emoji_flag} = item;
+                        
+                        let locationData = {region, country_name, emoji_flag}
 
                         if(joined || left) {
                             let username = JSON.parse(localStorage.getItem('username'));
 
                             if(username===user) {
-                                return <UserJoinedOrLeft key={uuidv4()} user={'You'} joined={joined} left={left}/>
+                                return <UserJoinedOrLeft key={uuidv4()} user={'You'} joined={joined} left={left} locationData={locationData}/>
                             } else {
-                                return <UserJoinedOrLeft key={uuidv4()} user={user} joined={joined} left={left}/>
+                                return <UserJoinedOrLeft key={uuidv4()} user={user} joined={joined} left={left} locationData={locationData}/>
                             }
                         } else {
                             return <Message key={i} user={user} message={message} timeStamp={timeStamp} avatar={avatar}/>

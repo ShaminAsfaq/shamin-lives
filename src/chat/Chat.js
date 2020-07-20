@@ -3,6 +3,7 @@ import MessageList from './MessageList';
 import io from 'socket.io-client';
 import UsernameGenerator from 'username-generator';
 
+import axios from 'axios';
 
 /**
  * To send notification to desktop
@@ -110,10 +111,18 @@ const Chat = () => {
         if(username.length>0) {
 
             // console.log(username);
+
             /**
              * Joining the chat
+             * 
+             * ipServer helps get the location of a user.
              */
-            socket.emit('joined', {user: username});
+            let ipServer ='https://api.ipdata.co?api-key=test';
+
+            axios.get(ipServer).then(({ data }) => {                
+                let { region, country_name, emoji_flag } = data;
+                socket.emit('joined', {user: username, region, country_name, emoji_flag});
+            })
 
             socket.on('joined', (data) => {
                 // console.log(data)
@@ -127,7 +136,7 @@ const Chat = () => {
             socket.emit('get-temp-messages', {user: username});
             socket.on('get-temp-messages', (data) => {
                 let socketIOlogo = '/media/chat.png';
-                pushNotification('Connected', 'Socket successful', 'Welcome to the chat!', socketIOlogo, 2000);
+                pushNotification('Connected', 'Socket successful', 'Welcome to the chat!', socketIOlogo, 3000);
                 // console.log(data);
                 setUpdatedMeetingList(data);
             });

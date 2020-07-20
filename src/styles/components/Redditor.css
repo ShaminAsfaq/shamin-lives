@@ -1,0 +1,64 @@
+.single-redditor {
+    box-shadow: 
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12) !important;
+}
+
+.redditor-dp {
+    object-fit: cover;
+    width: 100% !important;
+    height: 300px !important;
+}
+
+.on-reddit-link {
+    left: 2%;
+    background: transparent !important;
+    color: rgb(170, 67, 47) !important;
+}
+
+.on-reddit-link:hover {
+    background: rgba(71, 209, 252, 0.208) !important;
+    color: black !important;
+
+    /* Making the button text unselectable  */
+	-moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+	user-select: none;
+}
+
+.cake-day-icon, .karma-icon {
+    color: teal;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

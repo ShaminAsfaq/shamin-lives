@@ -10,7 +10,7 @@ import axios from 'axios';
  */
 import addNotification from 'react-push-notification';
 
-import '../styles/components/Chat.css';
+import '../../styles/components/Chat.css';
 
 const Chat = () => {
     /**

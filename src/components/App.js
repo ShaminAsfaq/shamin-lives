@@ -7,7 +7,7 @@ import Home from './Home';
 import NotFound from './404';
 // import Spotify from './Spotify';
 import FriendsRandom from './discover/FriendsRandom';
-import Chat from '../chat/Chat';
+import Chat from './chat/Chat';
 import Conference from './PeerJS/Conference';
 
 //  This dependency is useful to hide anything in the DOM from a specific browser/os etc.
@@ -22,9 +22,11 @@ const Menu = () => {
             <NavLink to="/" exact={true} className="item">
                 Home
             </NavLink>
-            <NavLink to="/create" className="item">
-                Create
-            </NavLink>
+            {
+                // <NavLink to="/create" className="item">
+                //     Create
+                // </NavLink>
+            }
             <NavLink to="/discover" className="item">
                 Magical Land of Narnia
             </NavLink>
@@ -44,18 +46,15 @@ const App = () => {
                 <Menu />
                 <Switch>
                     <Route path='/' component={Home} exact={true}/>
-                    <Route path='/create' component={Chronicle}/>
+                    {<Route path='/create' component={Chronicle}/>}
                     <Route path='/discover' component={FriendsRandom} />
                     <Route component={NotFound}/>
                 </Switch>
                 {
                     // <Spotify />
                 }
-             </div>
-
-             <BrowserView>
-                <Chat/>
-             </BrowserView>
+            </div>
+            <Chat/>
              {
                 // <Conference/>
              }

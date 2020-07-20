@@ -4,7 +4,7 @@ import UsernameGenerator from 'username-generator';
 import { Emojione } from 'react-emoji-render';
 
 
-import '../styles/components/Message.css';
+import '../../styles/components/Message.css';
 
 const Message = ({user, message, timeStamp, avatar}) => {
     /**

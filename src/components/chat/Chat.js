@@ -3,6 +3,7 @@ import MessageList from './MessageList';
 import io from 'socket.io-client';
 import UsernameGenerator from 'username-generator';
 
+import publicIp from 'public-ip';
 import axios from 'axios';
 
 /**
@@ -119,9 +120,14 @@ const Chat = () => {
              */
             let ipServer ='https://api.ipdata.co?api-key=test';
 
-            axios.get(ipServer).then(({ data }) => {                
+            axios.get(ipServer).then(({ data }) => {
+                // console.log('IP WORKED')
                 let { region, country_name, emoji_flag } = data;
                 socket.emit('joined', {user: username, region, country_name, emoji_flag});
+            }).catch((e) => {
+                // console.log('FAILED')
+                socket.emit('joined', {user: username, region: '', country_name: '', emoji_flag: ''});
+                // console.log(e)
             })
 
             socket.on('joined', (data) => {
@@ -180,6 +186,9 @@ const Chat = () => {
      * Running once, as the following empty array is never gonna change.
      */
     useEffect(() => {
+        //  Detecting IP of client
+        publicIp.v4().then(e => console.log(e))
+
         // console.log(window.location.hostname)
         /**
          * username from localStorage

@@ -52,7 +52,9 @@ const App = () => {
                     // <Spotify />
                 }
             </div>
-            {/* <Chat/> */}
+            {
+                <Chat/>
+            }
              {
                 // <Conference/>
              }

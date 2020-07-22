@@ -1,0 +1,13 @@
+.home-parent {
+    display: flex;
+    padding: 1% 0% 0% 0%;
+    justify-content: space-evenly;
+}
+
+.prominent-redditors {
+    /* flex-direction: column; */
+    /* align-items: center; */
+    /* justify-content: space-around; */
+}
+
+

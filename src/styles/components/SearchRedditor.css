@@ -1,0 +1,19 @@
+.search-redditor {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-redditor-input {
+    display: inline-block;
+    flex-direction: column;
+}
+
+.search-redditor-input > div {
+    text-align: center;
+}
+
+
+
+
+
+

@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios';
 
-import '../styles/components/Redditor.css';
+import '../../styles/components/Redditor.css';
 
 class Redditor extends React.Component {
 
@@ -49,20 +49,36 @@ class Redditor extends React.Component {
                 joined = this.monthLocalizedString(joined.getFullYear(), joined.getMonth(), joined.getDate(), 'en');
                 icon_img = icon_img.split('?')[0];
 
+                /**
+                 * Reducing personal_description length
+                 */
+
+                let description = subreddit.public_description;
+                if(description.length > 115) {
+                    description = description.substr(0, 115)
+                    description += '...'
+                }
+
                 this.setState({
                     icon_img, 
                     display_name_prefixed: subreddit.display_name_prefixed,
                     karma: this.numberWithCommas(link_karma + comment_karma + awarder_karma + awardee_karma),
                     created, 
-                    description: subreddit.public_description,
+                    description,
                     title: subreddit.title,
                     joined
                 })
+            }).catch(e => {
+                this.setState({
+                    failed: true
+                })
+                console.log('FAILED TO GET REDDITOR')
             })
     }
 
     render(){
         return(
+            !this.state.failed &&
             <div className="card single-redditor">
                 <div className="image">
                     <img className='redditor-dp' src={this.state.icon_img}/>
@@ -93,7 +109,7 @@ class Redditor extends React.Component {
                         {this.state.karma}
                     </span>
                 </div>
-          </div>
+            </div>
         );
     };
 }

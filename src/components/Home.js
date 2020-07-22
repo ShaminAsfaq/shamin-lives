@@ -1,7 +1,9 @@
 import React from 'react';
 import Memento from './Memento';
-import Redditor from './Redditor';
+import RedditorList from './reddit/RedittorList';
+import SearchRedditor from './reddit/SearchRedditor';
 
+import '../styles/components/Home.css';
 
 class Home extends React.Component {
 
@@ -13,26 +15,23 @@ class Home extends React.Component {
     }
 
     render(){
+        let redditors = [
+                            'sakib_shahriyar',
+                            'shamin_asfaq',
+                            'pretty_personality',
+                            'I_droid1'
+                        ];
+
         return (
-            <div>
-                <h2 style={{paddingTop: '60px'}} className="ui center aligned icon header">
-                    <i style={{paddingBottom: '1%', color: 'rgb(0, 117, 238)'}} className="reddit icon"></i>
-                    Prominent redditors of Bangladesh
-                </h2>
-                <div className="ui cards" style={{ justifyContent: 'center', paddingTop: '1%' }}>
-                    {
-                        // <div>
-                        //     <Memento />
-                        //     <Memento />
-                        //     <Memento />
-                        //     <Memento />
-                        //     <Memento />
-                        // </div>
-                    }
-                    <Redditor redditor={'shamin_asfaq'}/>
-                    <Redditor redditor={'sakib_shahriyar'}/>
-                    <Redditor redditor={'pretty_personality'}/>
+            <div className='home-parent'>
+                <div className='prominent-redditors'>
+                    <h2 className="ui center aligned icon header">
+                        {/* <i style={{paddingBottom: '1%', color: 'rgb(0, 117, 238)'}} className="reddit icon"></i> */}
+                        Prominent redditors of Bangladesh
+                    </h2>
+                    <RedditorList redditors={redditors}/>
                 </div>
+                <SearchRedditor/>
             </div>
         );
     }

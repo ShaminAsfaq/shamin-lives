@@ -22,11 +22,9 @@ const Menu = () => {
             <NavLink to="/" exact={true} className="item">
                 Home
             </NavLink>
-            {
-                // <NavLink to="/create" className="item">
-                //     Create
-                // </NavLink>
-            }
+            <NavLink to="/create" className="item">
+                Create
+            </NavLink>
             <NavLink to="/discover" className="item">
                 Magical Land of Narnia
             </NavLink>
@@ -43,10 +41,10 @@ const App = () => {
     return (
         <BrowserRouter>
             <div className='app-component'>
-                <Menu />
+                {/* <Menu /> */}
                 <Switch>
                     <Route path='/' component={Home} exact={true}/>
-                    {<Route path='/create' component={Chronicle}/>}
+                    <Route path='/create' component={Chronicle}/>
                     <Route path='/discover' component={FriendsRandom} />
                     <Route component={NotFound}/>
                 </Switch>
@@ -54,7 +52,7 @@ const App = () => {
                     // <Spotify />
                 }
             </div>
-            <Chat/>
+            {/* <Chat/> */}
              {
                 // <Conference/>
              }

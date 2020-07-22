@@ -1,18 +1,24 @@
 .search-redditor {
     display: flex;
     flex-direction: column;
+    max-width: 15% !important;
 }
 
 .search-redditor-input {
-    display: inline-block;
+    display: flex !important;
+    /* display: inline-block; */
     flex-direction: column;
 }
 
 .search-redditor-input > div {
     text-align: center;
+    padding-top: 1%;
 }
 
-
+.found-redditor {
+    justify-content: center;
+    display: flex;
+}
 
 
 

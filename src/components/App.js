@@ -10,6 +10,8 @@ import FriendsRandom from './discover/FriendsRandom';
 import Chat from './chat/Chat';
 import Conference from './PeerJS/Conference';
 
+import Placeholders from './Placeholders';
+
 //  This dependency is useful to hide anything in the DOM from a specific browser/os etc.
 //  Look up on npmjs
 import { BrowserView, MobileView} from 'react-device-detect';
@@ -28,6 +30,9 @@ const Menu = () => {
             <NavLink to="/discover" className="item">
                 Magical Land of Narnia
             </NavLink>
+            <NavLink to="/placeholders" className="item">
+                Placeholders
+            </NavLink>
             <div className="right menu">
                 <div className="ui item">
                 <Clock />
@@ -41,11 +46,14 @@ const App = () => {
     return (
         <BrowserRouter>
             <div className='app-component'>
-                {/* <Menu /> */}
+                {
+                    <Menu />
+                }
                 <Switch>
                     <Route path='/' component={Home} exact={true}/>
                     <Route path='/create' component={Chronicle}/>
                     <Route path='/discover' component={FriendsRandom} />
+                    <Route path='/placeholders' component={Placeholders} />
                     <Route component={NotFound}/>
                 </Switch>
                 {

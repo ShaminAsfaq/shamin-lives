@@ -3,6 +3,8 @@ import Memento from './Memento';
 import RedditorList from './reddit/RedittorList';
 import SearchRedditor from './reddit/SearchRedditor';
 
+import axios from 'axios';
+
 import '../styles/components/Home.css';
 
 class Home extends React.Component {

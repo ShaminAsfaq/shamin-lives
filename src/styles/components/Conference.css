@@ -1,8 +1,25 @@
 .audio-player {
-    padding-left: '5%';
-    padding-bottom: '5%';
+    padding-left: 5%;
+    padding-bottom: 5%;
 }
 
 .input-field-to {
-    margin-left: 5  %;
+    margin-left: 5%;
+}
+
+video {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.all-videos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    outline: red 4px solid;
+    width: 90%;
+    height: 90%;
+    margin-left: 5%;
+    margin-top: 15%;
 }

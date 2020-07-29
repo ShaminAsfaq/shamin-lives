@@ -17,8 +17,8 @@ const Chat = () => {
     /**
      * Socket server URL
      */
-    // let SOCKET_URL = 'http://118.179.95.206:5000';
-    let SOCKET_URL = 'https://shamin-lives-server.herokuapp.com'
+    let SOCKET_URL = 'http://118.179.95.206:5000';
+    // let SOCKET_URL = 'https://shamin-lives-server.herokuapp.com'
 
     /**
      * Socket from socket.io-client
@@ -111,7 +111,7 @@ const Chat = () => {
 
         if(username.length>0) {
 
-            // console.log(username);
+            console.log(username);
 
             /**
              * Joining the chat
@@ -121,7 +121,7 @@ const Chat = () => {
             let ipServer ='https://api.ipdata.co?api-key=test';
 
             axios.get(ipServer).then(({ data }) => {
-                // console.log('IP WORKED')
+                console.log('IP WORKED')
                 let { region, country_name, emoji_flag } = data;
                 socket.emit('joined', {user: username, region, country_name, emoji_flag});
             }).catch((e) => {

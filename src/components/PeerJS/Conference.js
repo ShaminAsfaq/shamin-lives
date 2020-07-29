@@ -1,211 +1,281 @@
 import React from 'react'
 
-import Peer from 'peerjs';
+import io from 'socket.io-client';
+import Peer from 'simple-peer';
+
+import {v4 as uuidV4} from 'uuid';
 
 import '../../styles/components/Conference.css';
 
 class Conference extends React.Component {
 
-    SOCKET_FOR_AUDIO_CALL = '118.179.95.206';
-    PORT = 5001
-
-    peer = null;
+    SOCKET_URL = 'http://118.179.95.206:5000';
+    socket = io.connect(this.SOCKET_URL, {'transports': ['websocket', 'polling']});
 
 
-
-    onReceiveStream = (stream, element_id) => {
-        // Retrieve the video element according to the desired
-        var video = document.getElementById(element_id);
-        // Set the given stream as the video source 
-        video.srcObject = stream;
-   
-        // console.log('Recieved !')
-        // console.log(video.srcObject)
-
-        // Store a global reference of the stream
-        window.peer_stream = stream;
-    }
-
-    requestLocalVideo = (callbacks) => {
-        // Monkeypatch for crossbrowser geusermedia
-        // navigator.mediaDevices.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia || navigator.mediaDevices.mozGetUserMedia;
-    
-        // Request audio and video
-        navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(callbacks.success).catch(callbacks.error)
-    }
-
-    componentDidMount() {
-        this.requestLocalVideo({
-            success: function(stream){
-                console.log('SUCCESs')
-                // window.localStream = stream;
-                // console.log(stream)
-                
-
-                // this.onReceiveStream(stream, 'my-camera');
-
-                // Retrieve the video element according to the desired
-                var video = document.getElementById('my-camera');
-                // Set the given stream as the video source 
-                video.srcObject = stream;
-                // console.log(stream)
-            
-                // Store a global reference of the stream
-                window.peer_stream = stream;
-                // video.play()
-            
-            },
-            error: function(err){
-                alert("Cannot get access to your camera and video !");
-                console.error(err);
+    /*
+    * Partial Answer: Taken from https://stackoverflow.com/a/11646945/5554993
+    */
+    // stop both mic and camera
+    stopBothVideoAndAudio = (stream) => {
+        stream.getTracks().forEach((track) => {
+            if (track.readyState == 'live') {
+                track.stop();
             }
         });
+    };
 
 
-        this.peer = new Peer(this.state.from, {
-            host: this.SOCKET_FOR_AUDIO_CALL, port: this.PORT, path: '/peerjs',
-            config: {'iceServers': [
-                        { url: 'stun:stun1.l.google.com:19302' },
-                        { url: 'turn:numb.viagenie.ca', credential: 'muazkh', username: 'webrtc@live.com' }
-                    ]}
-            });
+    componentDidMount() {
 
-        this.peer.on('open', function(id){
-            console.log('My peer ID is: ' + id);
+        navigator.mediaDevices.getUserMedia({
+            video: true,
+            audio: true
+        }).then((stream) => {
+            let userVideo = this.state.userVideo
+            // console.log(stream.id)
 
-            this.state = {peer_id: id}
+            if (!userVideo) {
+                userVideo = {
+                    srcObject: stream
+                }
+            }
 
+            this.setState({
+                stream,
+                userVideo
+            }, () => {
+                // console.log(this.state.userVideo)
+                let video = document.getElementById('my-camera');
+                video.srcObject = this.state.userVideo.srcObject;
+            })
         });
 
-        // peer.on('call', this.onReceiveCall);
+        this.socket.on('connection', res => {
+            console.log('FOUND RESPONSE');
+        });
 
-        this.peer.on('call', (stream) => {
-            window.peer_stream = stream;
-            this.onReceiveStream(stream, 'peer-camera');
-        })
+        this.socket.on('yourID', id => {
+            // console.log('My ID: ' + id)
+            this.setState({
+                yourID: id
+            })
+        });
+
+        this.socket.on('allUsers', users => {
+            this.setState({
+                users
+            })
+        });
+
+        this.socket.on('hey', data => {
+            console.log('HEY FOUND')
+            this.setState({
+                receivingCall: true,
+                caller: data.from,
+                callerSignal: data.signal
+            }, () => {
+                console.log(this.state.receivingCall)
+                console.log(this.state.caller)
+                console.log(this.state.callerSignal)
+            })
+        });
+
+    }
+
+    componentWillUnmount() {
+        // console.log('Stopping things')
+        // this.stopBothVideoAndAudio(window.localStream);
+        // console.log(window.localStream)
+        this.socket.emit('left-video', this.state.yourID);
     }
 
     constructor(props) {
         super(props);
         this.state = {
-            ...this.state,
             from: '',
-            to: ''
+            to: '',
+            addNewVideo: this.addNewVideo
         };
         // this.onReceiveStream = this.onReceiveStream.bind(this);
         // this.requestLocalVideo = this.requestLocalVideo.bind(this);
     }
 
-    onClick = () => {
-         
-        let inp = document.getElementsByClassName('input-field-to')
-        let inputTo = inp[0].value
 
-        inp = document.getElementsByClassName('input-field-from')
-        let inputFrom = inp[0].value
+    addNewVideo = (video, stream) => {
+        // console.log(stream)
+        let grid = document.getElementById('video-grid');
+        // console.log(grid)
+        // console.log(video)
+        // console.log(stream)
 
-        // this.setState(() => {
-        //     return{
-        //         input
-        //     }
-        // })
-        console.log(inputFrom)
+        video.srcObject = stream;
 
-        this.peer = new Peer(inputFrom, {
-            host: this.SOCKET_FOR_AUDIO_CALL, port: this.PORT, path: '/peerjs',
-            config: {'iceServers': [
-                        { url: 'stun:stun1.l.google.com:19302' },
-                        { url: 'turn:numb.viagenie.ca', credential: 'muazkh', username: 'webrtc@live.com' }
-                    ]}
-            });
-
-        // console.log('starting call...');
-
-        // this.getAudio(
-        //     (MediaStream) => {
-        //         console.log('now calling ' + input || this.state.to);
-        //         var call = peer.call(input || this.state.to, MediaStream);
-        //         call.on('stream', this.onReceiveStream);
-        //     },
-        //     (err) => {
-        //         console.log('an error occured while getting the audio');
-        //         console.log(err);
-        //     }
-        // );
-
-        console.log('Calling to ' + inputTo);
-        console.log(this.peer);
-        console.log(window.localStream)
-
-        var call = this.peer.call(inputTo, window.localStream);
-
-        call.on('stream', (stream) =>{
-            window.peer_stream = stream;
-
-            this.onReceiveStream(stream, 'peer-camera');
-
-            // Retrieve the video element according to the desired
-            // var video = document.getElementById('peer-camera');
-            // Set the given stream as the video source 
-            // video.src = window.URL.createObjectURL(stream);
-        
-            // Store a global reference of the stream
-            // window.peer_stream = stream;
+        video.addEventListener('loadedmetadata', () => {
+            video.play();
         });
+
+        grid.append(video);
+
+    };
+
+    acceptCall = () => {
+        console.log('Accept Call');
+
+        this.setState({
+            callAccepted: true
+        })
+
+        const peer = new Peer({
+            initiator: false,
+            trickle: false,
+            debug: true,
+            stream: this.state.userVideo.srcObject
+        });
+
+        peer.on('signal', data => {
+            console.log('DEBUG 1')
+            console.log(data)
+            this.socket.emit('acceptCall', {signal: data, to: this.state.caller})
+        })
+
+        peer.on('stream', stream => {
+            console.log('DEBUG 2')
+            this.setState({
+                partnerVideo: {
+                    ...this.state.partnerVideo,
+                    srcObject: stream
+                }
+            }, () => {
+                console.log(this.state.partnerVideo.srcObject.id)
+                let video = document.getElementById('partner-camera');
+                video.srcObject = this.state.partnerVideo.srcObject;
+            })
+        })
+        console.log('Caller Signal: ')
+        peer.signal(this.state.callerSignal)
     }
 
-    onRecieve = () => {
-        this.peer.on('call', function (call) {
-            var acceptsCall = window.confirm("Videocall incoming, do you want to accept it ?");
-        
-            if(acceptsCall){
-                // Answer the call with your own video/audio stream
-                call.answer(window.localStream);
-        
-                // Receive data
-                call.on('stream', function (stream) {
-                    // Store a global reference of the other user stream
-                    window.peer_stream = stream;
-                    // Display the stream of the other user in the peer-camera video element !
-                    this.onReceiveStream(stream, 'peer-camera');
-                });
-        
-                // Handle when the call finishes
-                call.on('close', function(){
-                    alert("The videocall has finished");
-                });
-        
-                // use call.close() to finish a call
-            }else{
-                console.log("Call denied !");
+    callPeer = (id) => {
+        // console.log(`Calling ${id}`);
+        const peer = new Peer({
+            initiator: true,
+            trickle: false,
+            // config: {
+            //     iceServers: [
+            //         {
+            //             urls: "stun:numb.viagenie.ca",
+            //             username: "sultan1640@gmail.com",
+            //             credential: "98376683"
+            //         },
+            //         {
+            //             urls: "turn:numb.viagenie.ca",
+            //             username: "sultan1640@gmail.com",
+            //             credential: "98376683"
+            //         }
+            //     ]
+            // },
+            stream: this.state.userVideo.srcObject
+        })
+
+        peer.on('signal', data => {
+            console.log('Signal from Caller')
+            console.log(this.state.userVideo.srcObject.id)
+            this.socket.emit('callUser', {userToCall: id, signalData: data, from: this.state.yourID});
+        })
+
+        peer.on('stream', stream => {
+            // console.log(stream)
+            if (!this.state.partnerVideo) {
+                this.setState({
+                    partnerVideo: {
+                        ...this.state.partnerVideo,
+                        srcObject: stream
+                    }
+                })
+                console.log('FOUND PARTNER VIDEO')
+                let video = document.getElementById('partner-camera');
+                video.srcObject = this.state.partnerVideo.srcObject;
+                // console.log(this.state.userVideo)
+                // console.log(this.state.partnerVideo)
             }
-        });
-    }
+        })
+
+        this.socket.on('callAccepted', signal => {
+            console.log('Call Accepted')
+            this.setState({
+                callAccepted: true
+            })
+            peer.signal(signal);
+        })
+    };
 
     render() {
-        return(
-            <div className='audio-player'>
-                <input
-                    className='input-field-to' 
-                    placeholder={`TO:`}
-                >
-                </input>
-                <input
-                    className='input-field-from' 
-                    placeholder={`FROM:`}
-                >
-                </input>
-                <button
-                    onClick={this.onClick}
-                >
-                    Hit me!
-                </button>
-                <button onClick={this.onRecieve}>
-                    Recieve Call
-                </button>
-                <video id="my-camera"  width="300" height="300" playsInline autoPlay="autoplay" muted={false} className="mx-auto d-block"></video>
-                <video id="peer-camera" width="300" height="300" autoPlay="autoplay" className="mx-auto d-block"></video>
-                <audio controls></audio>
+        return (
+            <div style={{display: 'flex', flexDirection: 'column'}}>
+                <div className='all-videos' id='video-grid'>
+
+                    <video
+                        controls
+                        style={{outline: '3px solid black'}}
+                        id="my-camera"
+                        width="300" height="300"
+                        playsInline autoPlay="autoplay"
+                        muted={false}
+                        className="mx-auto d-block"/>
+
+                    {
+                        this.state.partnerVideo &&
+                        <video
+                            controls
+                            style={{outline: '3px solid black', marginLeft: '2%'}}
+                            id="partner-camera"
+                            width="300" height="300"
+                            playsInline autoPlay="autoplay"
+                            muted={false}
+                            className="mx-auto d-block"/>
+                    }
+
+
+                </div>
+                <div>
+                    {
+                        this.state.users &&
+                        Object.entries(this.state.users).map((item, idx) => {
+                            if (item[0] !== this.state.yourID) {
+                                return (
+                                    <button
+                                        key={idx}
+                                        onClick={() => {
+                                            this.callPeer(item)
+                                        }}
+                                    >
+                                        Call {item}
+                                    </button>
+                                )
+                            }
+                        })
+                    }
+                </div>
+                <div>
+                    {
+                        this.state.receivingCall &&
+                        !this.state.callAccepted &&
+                        <div>
+                            Sir, you have a call
+                            <button onClick={this.acceptCall}>
+                                Accept
+                            </button>
+                            <button onClick={() => {
+                                this.setState({
+                                    receivingCall: undefined
+                                })
+                            }}>
+                                Decline
+                            </button>
+                        </div>
+                    }
+                </div>
             </div>
         );
     }

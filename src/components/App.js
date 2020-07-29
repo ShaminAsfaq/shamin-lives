@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch, NavLink } from 'react-router-dom';
+import {BrowserRouter, Route, Switch, NavLink} from 'react-router-dom';
 
 import Clock from './Clock';
 import Chronicle from './Chronicle';
@@ -14,13 +14,20 @@ import Placeholders from './Placeholders';
 
 //  This dependency is useful to hide anything in the DOM from a specific browser/os etc.
 //  Look up on npmjs
-import { BrowserView, MobileView} from 'react-device-detect';
+import {BrowserView, MobileView} from 'react-device-detect';
 
 import '../styles/App.css';
 
 const Menu = () => {
-    return(
-        <div className="ui top secondary pointing menu" style={{ backgroundColor: 'white', position: 'fixed', width: '100%', top: '0', zIndex: '10', height: '50px' }}>
+    return (
+        <div className="ui top secondary pointing menu" style={{
+            backgroundColor: 'white',
+            position: 'fixed',
+            width: '100%',
+            top: '0',
+            zIndex: '10',
+            height: '50px'
+        }}>
             <NavLink to="/" exact={true} className="item">
                 Home
             </NavLink>
@@ -30,12 +37,12 @@ const Menu = () => {
             <NavLink to="/discover" className="item">
                 Magical Land of Narnia
             </NavLink>
-            <NavLink to="/placeholders" className="item">
-                Placeholders
+            <NavLink to="/conference" className="item">
+                Conference
             </NavLink>
             <div className="right menu">
                 <div className="ui item">
-                <Clock />
+                    <Clock/>
                 </div>
             </div>
         </div>
@@ -47,13 +54,14 @@ const App = () => {
         <BrowserRouter>
             <div className='app-component'>
                 {
-                    <Menu />
+                    <Menu/>
                 }
                 <Switch>
                     <Route path='/' component={Home} exact={true}/>
                     <Route path='/create' component={Chronicle}/>
-                    <Route path='/discover' component={FriendsRandom} />
-                    <Route path='/placeholders' component={Placeholders} />
+                    <Route path='/discover' component={FriendsRandom}/>
+                    <Route path='/placeholders' component={Placeholders}/>
+                    <Route path='/conference' component={Conference}/>
                     <Route component={NotFound}/>
                 </Switch>
                 {
@@ -61,12 +69,12 @@ const App = () => {
                 }
             </div>
             {
-                <Chat/>
+                // <Chat/>
             }
-             {
+            {
                 // <Conference/>
-             }
-             
+            }
+
         </BrowserRouter>
     );
 }

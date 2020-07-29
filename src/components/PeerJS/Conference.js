@@ -9,7 +9,8 @@ import '../../styles/components/Conference.css';
 
 class Conference extends React.Component {
 
-    SOCKET_URL = 'http://118.179.95.206:5000';
+    // SOCKET_URL = 'http://118.179.95.206:5000';
+    SOCKET_URL = 'https://shamin-lives-server.herokuapp.com';
     socket = io.connect(this.SOCKET_URL, {'transports': ['websocket', 'polling']});
 
 

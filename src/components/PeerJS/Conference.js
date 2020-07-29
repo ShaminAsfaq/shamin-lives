@@ -86,7 +86,7 @@ class Conference extends React.Component {
 
     componentWillUnmount() {
         // console.log('Stopping things')
-        // this.stopBothVideoAndAudio(window.localStream);
+        this.stopBothVideoAndAudio(this.state.userVideo.srcObject);
         // console.log(window.localStream)
         this.socket.emit('left-video', this.state.yourID);
     }
@@ -222,7 +222,7 @@ class Conference extends React.Component {
                         id="my-camera"
                         width="300" height="300"
                         playsInline autoPlay="autoplay"
-                        muted={false}
+                        muted={true}
                         className="mx-auto d-block"/>
 
                     {

@@ -38,7 +38,9 @@ class MaterialP2P extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            selectedItem: -1
+        }
     }
 
     Alert = (props) => {
@@ -92,6 +94,12 @@ class MaterialP2P extends React.Component {
             });
         });
 
+        this.socket.on('callDeclined', data => {
+            this.setState({
+                selectedItem: -1
+            });
+        });
+
     }
 
     componentWillUnmount() {
@@ -101,6 +109,14 @@ class MaterialP2P extends React.Component {
     declineCall = () => {
         this.setState({
             receivingCall: undefined
+        }, () => {
+            const peer = new Peer({
+                initiator: false,
+                trickle: false,
+                stream: this.state.myStream.srcObject
+            });
+
+            this.socket.emit('declineCall', {to: this.state.caller, from: this.state.yourID});
         });
     };
 
@@ -149,6 +165,20 @@ class MaterialP2P extends React.Component {
         const peer = new Peer({
             initiator: true,
             trickle: false,
+            config: {
+                iceServers: [
+                    {
+                        urls: "stun:numb.viagenie.ca",
+                        username: "sultan1640@gmail.com",
+                        credential: "98376683"
+                    },
+                    {
+                        urls: "turn:numb.viagenie.ca",
+                        username: "sultan1640@gmail.com",
+                        credential: "98376683"
+                    }
+                ]
+            },
             stream: this.state.myStream.srcObject
         });
 
@@ -255,8 +285,12 @@ class MaterialP2P extends React.Component {
                                         Object.entries(this.state.users).map((item, idx) => {
                                             if (item[0] !== this.state.yourID) {
                                                 return (
-                                                    <ListItem key={idx} button onClick={() => {
+                                                    <ListItem disabled={this.state.selectedItem === idx} key={idx}
+                                                              button onClick={() => {
                                                         this.callPeer(item);
+                                                        this.setState({
+                                                            selectedItem: idx
+                                                        })
                                                     }}>
                                                         <ListItemIcon>
                                                             <VideocamIcon/>

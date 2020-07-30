@@ -48,6 +48,7 @@ const CustomCard = (props) => {
         if (stream) {
             streamRef.current.srcObject = stream;
         }
+        console.log(stream)
 
         return (() => {
             if (stream) {

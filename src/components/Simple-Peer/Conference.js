@@ -26,7 +26,6 @@ class Conference extends React.Component {
         });
     };
 
-
     componentDidMount() {
 
         navigator.mediaDevices.getUserMedia({
@@ -101,7 +100,6 @@ class Conference extends React.Component {
         // this.onReceiveStream = this.onReceiveStream.bind(this);
         // this.requestLocalVideo = this.requestLocalVideo.bind(this);
     }
-
 
     addNewVideo = (video, stream) => {
         // console.log(stream)

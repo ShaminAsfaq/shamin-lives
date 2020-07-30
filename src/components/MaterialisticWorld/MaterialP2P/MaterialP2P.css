@@ -1,0 +1,57 @@
+.root > div {
+    margin: 8px;
+    width: 25ch;
+}
+
+.card-actions {
+    justify-content: center;
+}
+
+.main-container {
+    height: 100%;
+    display: flex !important;
+    flex-direction: row;
+    max-width: unset !important;
+}
+
+.video-grid {
+    width: 70% !important;
+}
+
+.someone-is-calling-grid {
+    width: 30% !important;
+}
+
+.someone-is-calling-card {
+    max-height: 250px;
+    max-width: 250px;
+    width: 30% !important;
+}
+
+@media screen and (max-width: 1050px)  {
+    .main-container {
+        /*display: flex;*/
+        /*flex-direction: column;*/
+        /*max-width: unset !important;*/
+        align-items: center;
+    }
+
+    .video-grid {
+        /*justify-content: center;*/
+        width: unset;
+    }
+
+    .someone-is-calling-card {
+        max-height: 150px;
+        max-width: 150px;
+    }
+
+    .someone-is-calling-grid {
+        width: unset !important;
+    }
+}
+
+.share-snack-bar {
+    transform: translateX(0%) !important;
+}
+

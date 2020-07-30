@@ -1,0 +1,9 @@
+#navigation {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#navigation > div {
+    text-align: center;
+}

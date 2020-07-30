@@ -5,10 +5,14 @@ import Clock from './Clock';
 import Chronicle from './Chronicle';
 import Home from './Home';
 import NotFound from './404';
+
+import MaterialHome from '../components/MaterialisticWorld/MaterialHome/MaterialHome';
+import MaterialP2P from './MaterialisticWorld/MaterialP2P/MaterialP2P';
+
 // import Spotify from './Spotify';
 import FriendsRandom from './discover/FriendsRandom';
 import Chat from './chat/Chat';
-import Conference from './PeerJS/Conference';
+import Conference from './Simple-Peer/Conference';
 
 import Placeholders from './Placeholders';
 
@@ -31,20 +35,23 @@ const Menu = () => {
             <NavLink to="/" exact={true} className="item">
                 Home
             </NavLink>
-            <NavLink to="/create" className="item">
-                Create
+            {/*<NavLink to="/create" className="item">*/}
+            {/*    Create*/}
+            {/*</NavLink>*/}
+            {/*<NavLink to="/discover" className="item">*/}
+            {/*    Magical Land of Narnia*/}
+            {/*</NavLink>*/}
+            <NavLink to="/p2p" className="item">
+                P2P Video
             </NavLink>
-            <NavLink to="/discover" className="item">
-                Magical Land of Narnia
-            </NavLink>
-            <NavLink to="/conference" className="item">
-                Conference
+            <NavLink to="/material-p2p" className="item">
+                Material P2P Video
             </NavLink>
             <div className="right menu">
                 <div className="ui item">
                     <Clock/>
                 </div>
-            </div>
+            </div>F
         </div>
     )
 }
@@ -52,16 +59,19 @@ const Menu = () => {
 const App = () => {
     return (
         <BrowserRouter>
-            <div className='app-component'>
+            <div className='app-component' style={{display: 'flex', flexDirection: 'column'}}>
                 {
-                    <Menu/>
+                    // <Menu/>
                 }
                 <Switch>
-                    <Route path='/' component={Home} exact={true}/>
+                    {/*<Route path='/' component={Home} exact={true}/>*/}
+                    <Route path='/' component={MaterialHome} exact={true}/>
+
+                    <Route path='/material-p2p' component={MaterialP2P}/>
                     <Route path='/create' component={Chronicle}/>
                     <Route path='/discover' component={FriendsRandom}/>
                     <Route path='/placeholders' component={Placeholders}/>
-                    <Route path='/conference' component={Conference}/>
+                    <Route path='/p2p' component={Conference}/>
                     <Route component={NotFound}/>
                 </Switch>
                 {

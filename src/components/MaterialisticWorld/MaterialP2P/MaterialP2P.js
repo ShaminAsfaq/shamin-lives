@@ -1,21 +1,15 @@
 import React, {createRef} from 'react';
-
 import './MaterialP2P.css';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
-import Button from "@material-ui/core/Button";
-
 import {withStyles} from "@material-ui/core";
 import PropTypes from 'prop-types';
-
 import MuiAlert from '@material-ui/lab/Alert';
 import Snackbar from "@material-ui/core/Snackbar";
-
 import CustomCard from './custom-stream-card/CustomCard';
 import Grid from "@material-ui/core/Grid";
-
-import AddPhotoAlternateIcon from '@material-ui/icons/AddPhotoAlternate';
-
+import CustomIncomingCallCard from './custom-incoming-call-card/CustomIncomingCallCard';
+import io from "socket.io-client";
 
 const useStyles = theme => ({
     root: {
@@ -27,8 +21,12 @@ const useStyles = theme => ({
     },
 });
 
-
 class MaterialP2P extends React.Component {
+    // SOCKET_URL = 'http://118.179.95.206:5000';
+    SOCKET_URL = 'https://shamin-lives-server.herokuapp.com';
+    socket = io.connect(this.SOCKET_URL, {'transports': ['websocket', 'polling']});
+
+
     constructor(props) {
         super(props);
         this.state = {}
@@ -44,8 +42,6 @@ class MaterialP2P extends React.Component {
             audio: true
         }).then((stream) => {
             let myStream = this.state.myStream;
-            // console.log(stream.id)
-
             if (!myStream) {
                 myStream = {
                     srcObject: stream
@@ -119,14 +115,10 @@ class MaterialP2P extends React.Component {
                             }
                         </Grid>
 
-                        <Grid container spacing={2} style={{flexDirection: 'row-reverse'}} className='someone-is-calling-grid'>
+                        <Grid container spacing={2} style={{flexDirection: 'row-reverse'}}
+                              className='someone-is-calling-grid'>
                             <Grid item>
-                                <CustomCard
-                                    className='someone-is-calling-card'
-                                    stream={this.state.myStream}
-                                    showSnackBar={this.showSnackBar}
-                                    muted={false}
-                                />
+                                <CustomIncomingCallCard/>
                             </Grid>
                         </Grid>
                     </div>

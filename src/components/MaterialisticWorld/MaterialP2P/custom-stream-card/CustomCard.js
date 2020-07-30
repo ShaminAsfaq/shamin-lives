@@ -1,12 +1,9 @@
 import React, {useRef, useState, useEffect} from 'react';
-import Container from "@material-ui/core/Container";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
-
-import MuiAlert from '@material-ui/lab/Alert';
 import ShareIcon from '@material-ui/icons/Share';
 import PauseIcon from '@material-ui/icons/Pause';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
@@ -23,13 +20,11 @@ const useStyles = makeStyles({
         maxWidth: 345,
     },
     media: {
-        // height: 315,
-        // objectFit: 'contain'
     },
 });
+
 const CustomCard = (props) => {
     const classes = useStyles();
-
     const {showSnackBar, placeholder, stream, muted} = props;
 
     // console.log(props.stream)
@@ -62,7 +57,7 @@ const CustomCard = (props) => {
     }, [stream]);
 
     return (
-        <Card className={classes.root} style={{minWidth: 'unset'}}>
+        <Card className={classes.root} className='main-card'>
             <CardActionArea className='video-card'>
                 {
                     muted ?
@@ -79,6 +74,7 @@ const CustomCard = (props) => {
                     autoPlay
                     loop
                     muted={muted}
+                    className='video-content'
                 />
 
             </CardActionArea>

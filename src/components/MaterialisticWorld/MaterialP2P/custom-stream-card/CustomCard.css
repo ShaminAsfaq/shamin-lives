@@ -1,14 +1,20 @@
+.main-card {
+    min-width: unset;
+}
+
+.video-content {
+    height: unset;
+}
+
 .video-card {
     max-height: 250px;
     max-width: 250px;
-    /*min-height: 250px;*/
-    /*min-width: 250px;*/
 }
 
 @media screen and (max-width: 1050px)  {
-    .video-card {
-        max-height: 150px;
-        max-width: 150px;
+    .main-card {
+        height: 160px !important;
+        width: 160px;
     }
 
 }

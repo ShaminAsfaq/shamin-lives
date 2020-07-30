@@ -27,7 +27,6 @@ class Conference extends React.Component {
     };
 
     componentDidMount() {
-
         navigator.mediaDevices.getUserMedia({
             video: true,
             audio: true

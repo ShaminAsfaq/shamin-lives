@@ -1,0 +1,35 @@
+.action-group {
+    justify-content: center;
+    flex-direction: column;
+}
+
+.incoming-call-message {
+    text-align: center;
+}
+
+.main-card-answer {
+    width: 150px;
+    /*min-width: 150px;*/
+    /*min-height: 150px;*/
+}
+
+.image-content {
+    /*height: unset;*/
+    width: 50% !important;
+    height: 50%;
+    /*object-fit: contain;*/
+}
+
+.image-card {
+    display: flex !important;
+    flex-direction: column;
+    max-height: 200px;
+    max-width: 200px;
+}
+
+@media screen and (max-width: 1050px) {
+    .main-card-answer {
+        height: 160px !important;
+        width: 150px;
+    }
+}

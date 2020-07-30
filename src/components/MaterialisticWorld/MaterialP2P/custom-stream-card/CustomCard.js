@@ -46,12 +46,12 @@ const CustomCard = (props) => {
 
     useEffect(() => {
         if (stream) {
-            streamRef.current.srcObject = stream.srcObject;
+            streamRef.current.srcObject = stream;
         }
 
         return (() => {
             if (stream) {
-                stopBothVideoAndAudio(stream.srcObject);
+                stopBothVideoAndAudio(stream);
             }
         });
     }, [stream]);

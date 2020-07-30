@@ -38,6 +38,7 @@ const useStyles = makeStyles({
 });
 const CustomIncomingCallCard = (props) => {
     const classes = useStyles();
+    const { acceptCall, declineCall } = props;
 
     return (
         <Card className={classes.root} className='main-card-answer'>
@@ -54,10 +55,16 @@ const CustomIncomingCallCard = (props) => {
                 <ButtonGroup variant="contained" color="primary"
                              aria-label="contained primary button group"
                 >
-                    <Button size="small" color="primary" variant='contained'>
+                    <Button
+                        size="small" color="primary" variant='contained'
+                        onClick={acceptCall}
+                    >
                         <VideocamIcon/>
                     </Button>
-                    <Button size="small" color="secondary" variant='contained'>
+                    <Button
+                        size="small" color="secondary" variant='contained'
+                        onClick={declineCall}
+                    >
                         <VideocamOffIcon/>
                     </Button>
 

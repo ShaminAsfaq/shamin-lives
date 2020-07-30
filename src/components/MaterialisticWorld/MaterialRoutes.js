@@ -32,13 +32,13 @@ const MaterialRoutes = [
         icon: AccountCircle,
         component: FriendsRandom
     },
-    {
-        path: '/p2p',
-        sidebarName: 'P2P Video Calling',
-        navbarName: 'P2P Video Calling',
-        icon: AccountCircle,
-        component: WrapClassToFunctionConference
-    },
+    // {
+    //     path: '/p2p',
+    //     sidebarName: 'P2P Video Calling',
+    //     navbarName: 'P2P Video Calling',
+    //     icon: AccountCircle,
+    //     component: WrapClassToFunctionConference
+    // },
 ];
 
 export default MaterialRoutes;

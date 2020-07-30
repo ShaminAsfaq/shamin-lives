@@ -4,6 +4,7 @@
 
 .video-content {
     height: unset;
+    object-fit: contain;
 }
 
 .video-card {

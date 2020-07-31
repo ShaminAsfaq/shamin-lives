@@ -108,7 +108,9 @@ class MaterialP2P extends React.Component {
 
     declineCall = () => {
         this.setState({
-            receivingCall: undefined
+            receivingCall: undefined,
+            selectedItem: -1
+            // caller: undefined
         }, () => {
             const peer = new Peer({
                 initiator: false,
@@ -165,20 +167,13 @@ class MaterialP2P extends React.Component {
         const peer = new Peer({
             initiator: true,
             trickle: false,
-            // config: {
-            //     iceServers: [
-            //         {
-            //             urls: "stun:numb.viagenie.ca",
-            //             username: "sultan1640@gmail.com",
-            //             credential: "98376683"
-            //         },
-            //         {
-            //             urls: "turn:numb.viagenie.ca",
-            //             username: "sultan1640@gmail.com",
-            //             credential: "98376683"
-            //         }
-            //     ]
-            // },
+            config: {
+                iceServers: [
+                    {
+                        'url': 'stun:stun.l.google.com:19302'
+                    }
+                ]
+            },
             stream: this.state.myStream.srcObject
         });
 
@@ -283,6 +278,8 @@ class MaterialP2P extends React.Component {
                                     {
                                         this.state.users &&
                                         Object.entries(this.state.users).map((item, idx) => {
+                                            console.log(this.state.caller)
+                                            console.log(item[0])
                                             if (item[0] !== this.state.yourID) {
                                                 return (
                                                     <ListItem disabled={this.state.selectedItem === idx} key={idx}

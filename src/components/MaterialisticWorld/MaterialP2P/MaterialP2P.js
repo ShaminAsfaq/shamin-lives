@@ -169,9 +169,12 @@ class MaterialP2P extends React.Component {
             trickle: false,
             config: {
                 iceServers: [
+                    {urls: 'stun:stun.l.google.com:19302'},
                     {
-                        'url': 'stun:stun.l.google.com:19302'
-                    }
+                        url: 'turn:numb.viagenie.ca',
+                        credential: 'new-discord',
+                        username: 'shamin.asfaq@gmail.com',
+                    },
                 ]
             },
             stream: this.state.myStream.srcObject

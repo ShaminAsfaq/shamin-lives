@@ -9,6 +9,8 @@ import NotFound from './404';
 import MaterialHome from '../components/MaterialisticWorld/MaterialHome/MaterialHome';
 import MaterialP2P from './MaterialisticWorld/MaterialP2P/MaterialP2P';
 
+import EducationBoardResultBD from './MaterialisticWorld/EducationBoardResultBD/EducationBoardResultBD';
+
 // import Spotify from './Spotify';
 import FriendsRandom from './discover/FriendsRandom';
 import Chat from './chat/Chat';
@@ -65,13 +67,14 @@ const App = () => {
                 }
                 <Switch>
                     {/*<Route path='/' component={Home} exact={true}/>*/}
-                    <Route path='/' component={MaterialHome} exact={true}/>
+                    {/*<Route path='/create' component={Chronicle}/>*/}
+                    {/*<Route path='/placeholders' component={Placeholders}/>*/}
+                    {/*<Route path='/p2p' component={Conference}/>*/}
 
-                    <Route path='/material-p2p' component={MaterialP2P}/>
-                    <Route path='/create' component={Chronicle}/>
-                    <Route path='/discover' component={FriendsRandom}/>
-                    <Route path='/placeholders' component={Placeholders}/>
-                    <Route path='/p2p' component={Conference}/>
+                    {/*<Route path='/material-p2p' component={MaterialP2P}/>*/}
+                    {/*<Route path='/discover' component={FriendsRandom}/>*/}
+
+                    <Route path='/' component={MaterialHome} exact={true}/>
                     <Route component={NotFound}/>
                 </Switch>
                 {

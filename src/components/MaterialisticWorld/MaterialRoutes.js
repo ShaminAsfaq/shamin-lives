@@ -4,6 +4,7 @@ import {Home, AccountCircle} from '@material-ui/icons';
 import MaterialP2P from './MaterialP2P/MaterialP2P';
 import FriendsRandom from '../../components/discover/FriendsRandom'
 import Conference from '../Simple-Peer/Conference';
+import EducationBoardResultBD from './EducationBoardResultBD/EducationBoardResultBD';
 
 const WrapClassToFunctionMaterialP2P = () => {
     return (
@@ -17,20 +18,35 @@ const WrapClassToFunctionConference = () => {
     )
 };
 
+const WrapClassToFunctionEducationBoardReusltBD = () => {
+    return (
+        <EducationBoardResultBD/>
+    );
+};
+
 const MaterialRoutes = [
-    {
-        path: '/material-p2p',
-        sidebarName: 'Material P2P',
-        navbarName: 'Material P2P',
-        icon: Home,
-        component: WrapClassToFunctionMaterialP2P
-    },
+    // {
+    //     //Failed Attempt. Apparently, Govt of Bangladesh is keeping some piece of junk php guys who only knows SOAP
+    //
+    //     path: '/education-board-result-bd',
+    //     sidebarName: 'Board Exam Result BD',
+    //     navbarName: 'Education Board Exam Result BD',
+    //     icon: AccountCircle,
+    //     component: WrapClassToFunctionEducationBoardReusltBD
+    // },
     {
         path: '/discover',
         sidebarName: 'F.R.I.E.N.D.S',
         navbarName: 'F.R.I.E.N.D.S',
         icon: AccountCircle,
         component: FriendsRandom
+    },
+    {
+        path: '/material-p2p',
+        sidebarName: 'Material P2P',
+        navbarName: 'Material P2P',
+        icon: Home,
+        component: WrapClassToFunctionMaterialP2P
     },
     // {
     //     path: '/p2p',

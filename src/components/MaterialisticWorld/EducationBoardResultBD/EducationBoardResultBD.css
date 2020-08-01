@@ -1,0 +1,50 @@
+.education-board-list {
+    /*width: 100%;*/
+}
+
+.root {
+    display: flex;
+    /*flex-wrap: wrap;*/
+}
+
+.education-board-text-field {
+    margin-left: 8px;
+    margin-right: 8px;
+    /*width: 200px;*/
+}
+
+.education-board-form {
+    width: 100% !important;
+    padding: 0 15%;
+    display: flex;
+    flex-direction: column;
+}
+
+.text-field {
+    padding-top: 15px !important;
+    /*padding-bottom: 10px !important;*/
+}
+
+.backdrop {
+    display: flex;
+    justify-content: center !important;
+    z-index: 100;
+    color: #fff;
+    height: 100%;
+    width: 100% !important;
+    margin-top: -10% !important;
+}
+
+.the-real-backdrop {
+    width: 100% !important;
+    height: 100% !important;
+
+    opacity: 2.5 !important;
+
+    left: unset !important;
+    top: unset !important;
+    right: unset !important;
+    bottom: unset !important;
+    position: absolute;
+}
+

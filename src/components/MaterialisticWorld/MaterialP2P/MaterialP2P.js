@@ -72,6 +72,7 @@ class MaterialP2P extends React.Component {
         });
 
         this.socket.on('connection', res => {
+            console.log(res)
         });
 
         this.socket.on('yourID', id => {
@@ -81,6 +82,7 @@ class MaterialP2P extends React.Component {
         });
 
         this.socket.on('allUsers', users => {
+            console.log(users);
             this.setState({
                 users
             });
@@ -231,6 +233,7 @@ class MaterialP2P extends React.Component {
     streamList = [];
 
     render() {
+        console.log(this.state);
         const {classes} = this.props;
         return (
             <React.Fragment>

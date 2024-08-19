@@ -79,7 +79,7 @@ const App = () => {
                     <Route component={NotFound}/>
                 </Switch>
                 {
-                    <Spotify />
+                    // <Spotify />
                 }
             </div>
             {

@@ -1,10 +1,18 @@
 import React from 'react';
 
-import {Home, AccountCircle} from '@material-ui/icons';
+import {AccountCircle} from '@material-ui/icons';
 import MaterialP2P from './MaterialP2P/MaterialP2P';
 import FriendsRandom from '../../components/discover/FriendsRandom'
 import Conference from '../Simple-Peer/Conference';
 import EducationBoardResultBD from './EducationBoardResultBD/EducationBoardResultBD';
+import Redditor from "../reddit/Redditor";
+import Home from "../Home";
+
+const WrapClassToFunctionOldHome = () => {
+    return (
+        <Home/>
+    )
+}
 
 const WrapClassToFunctionMaterialP2P = () => {
     return (
@@ -45,7 +53,7 @@ const MaterialRoutes = [
         path: '/material-p2p',
         sidebarName: 'Material P2P',
         navbarName: 'Material P2P',
-        icon: Home,
+        icon: AccountCircle,
         component: WrapClassToFunctionMaterialP2P
     },
     // {
@@ -55,6 +63,13 @@ const MaterialRoutes = [
     //     icon: AccountCircle,
     //     component: WrapClassToFunctionConference
     // },
+    {
+        path: '/material-reddit',
+        sidebarName: 'Reddit',
+        navbarName: 'Reddit',
+        icon: AccountCircle,
+        component: WrapClassToFunctionOldHome
+    },
 ];
 
 export default MaterialRoutes;

@@ -23,6 +23,7 @@ import Placeholders from './Placeholders';
 import {BrowserView, MobileView} from 'react-device-detect';
 
 import '../styles/App.css';
+import Spotify from "./Spotify";
 
 const Menu = () => {
     return (
@@ -37,12 +38,12 @@ const Menu = () => {
             <NavLink to="/" exact={true} className="item">
                 Home
             </NavLink>
-            {/*<NavLink to="/create" className="item">*/}
-            {/*    Create*/}
-            {/*</NavLink>*/}
-            {/*<NavLink to="/discover" className="item">*/}
-            {/*    Magical Land of Narnia*/}
-            {/*</NavLink>*/}
+            <NavLink to="/create" className="item">
+                Create
+            </NavLink>
+            <NavLink to="/discover" className="item">
+                Magical Land of Narnia
+            </NavLink>
             <NavLink to="/p2p" className="item">
                 P2P Video
             </NavLink>
@@ -78,7 +79,7 @@ const App = () => {
                     <Route component={NotFound}/>
                 </Switch>
                 {
-                    // <Spotify />
+                    <Spotify />
                 }
             </div>
             {

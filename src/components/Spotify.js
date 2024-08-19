@@ -15,7 +15,8 @@ import '../styles/Spotify.css';
 
 class Spotify extends React.Component {
     // baseURL = 'https://shamin-lives-server.herokuapp.com';
-    baseURL = 'http://localhost:5000';
+    // baseURL = 'http://localhost:5000';
+    baseURL = 'https://shamin-lives-server.onrender.com';
     constructor(props) {
         super(props);
         this.state = {}

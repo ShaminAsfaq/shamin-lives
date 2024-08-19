@@ -33,7 +33,8 @@ const useStyles = theme => ({
 
 class MaterialP2P extends React.Component {
     // SOCKET_URL = 'http://118.179.95.206:5000';
-    SOCKET_URL = 'https://shamin-lives-server.herokuapp.com';
+    // SOCKET_URL = 'https://shamin-lives-server.herokuapp.com';
+    SOCKET_URL = 'https://shamin-lives-server.onrender.com';    //  Heroku is discontinued. Now deployed on RENDER
     socket = io.connect(this.SOCKET_URL, {'transports': ['websocket', 'polling']});
 
     constructor(props) {

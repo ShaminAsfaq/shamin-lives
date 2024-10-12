@@ -17,13 +17,17 @@ const Chat = () => {
     /**
      * Socket server URL
      */
-    let SOCKET_URL = 'http://118.179.95.206:5000';
+    // let SOCKET_URL = 'http://118.179.95.206:5000';
     // let SOCKET_URL = 'https://shamin-lives-server.herokuapp.com'
+    let SOCKET_URL = 'https://shamin-lives-server.onrender.com';    //  Heroku is discontinued. Now deployed on RENDER
+
+    // Initialize socket connection using useRef
+    const socketRef = useRef(null);
 
     /**
-     * Socket from socket.io-client
+     * Socket from socket.io-client --> Bad Approach
      */
-    let socket = io.connect(SOCKET_URL, {'transports': ['websocket', 'polling']});
+    // let socket = io.connect(SOCKET_URL, {'transports': ['websocket', 'polling']});
     
     /**
      * Enabling state and other variables.
@@ -108,6 +112,11 @@ const Chat = () => {
      * UseEffect for username
      */
     useEffect(() => {
+        if (!socketRef.current) {
+            socketRef.current = io.connect(SOCKET_URL, { 'transports': ['websocket', 'polling'] });
+        }
+
+        const socket = socketRef.current;
 
         if(username.length>0) {
 
@@ -118,14 +127,14 @@ const Chat = () => {
              * 
              * ipServer helps get the location of a user.
              */
-            let ipServer ='https://api.ipdata.co?api-key=test';
+            let ipServer ='https://api.ipdata.co?api-key=546b5127a6a5109396e7ef96c618584caf74359af29e9b1f072c2e34';
 
             axios.get(ipServer).then(({ data }) => {
                 console.log('IP WORKED')
                 let { region, country_name, emoji_flag } = data;
                 socket.emit('joined', {user: username, region, country_name, emoji_flag});
             }).catch((e) => {
-                // console.log('FAILED')
+                console.log('FAILED')
                 socket.emit('joined', {user: username, region: '', country_name: '', emoji_flag: ''});
                 // console.log(e)
             })
@@ -257,6 +266,8 @@ const Chat = () => {
         // console.log(text)
         text = trimSpaceOnlyFromStartAndEnd(text);
 
+        const socket = socketRef.current;
+
         if(text.length>0) {
             socket.emit('message', {user: username, message: text, timeStamp: getTimeIn12HourClock()});
         }
@@ -302,6 +313,7 @@ const Chat = () => {
     }
 
     let onKeyUp = debounce(() => {
+        const socket = socketRef.current;
         // code you would like to run 1000ms after the keyup event has stopped firing
         // further keyup events reset the timer, as expected
         socket.emit('typing', {user: username, typing: false});
@@ -315,6 +327,7 @@ const Chat = () => {
                 console.log('COLON');
             }
 
+            const socket = socketRef.current;
             socket.emit('typing', {user: username, typing: true})
         }
     }, 100)

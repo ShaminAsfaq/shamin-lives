@@ -283,16 +283,16 @@ const Chat = () => {
          * Change it USING ref
          */
 
-        // let foundDiv = document.getElementsByClassName('chat-window')
+        let foundDiv = document.getElementsByClassName('chat-window')
 
-        // if(foundDiv[0]) {
-        //     let foundVisibility = document.getElementsByClassName('chat-window')[0].style.visibility;
-        //     updateVisible(foundVisibility==='hidden'?true:false);
-        //     updateHiddenElement(foundDiv[0]);
-        // } else {
-        //     let foundVisibility = hiddenElement.style.visibility;
-        //     updateVisible(foundVisibility==='hidden'?false:true);
-        // }
+        if(foundDiv[0]) {
+            let foundVisibility = document.getElementsByClassName('chat-window')[0].style.visibility;
+            updateVisible(foundVisibility==='hidden'?true:false);
+            updateHiddenElement(foundDiv[0]);
+        } else {
+            let foundVisibility = hiddenElement.style.visibility;
+            updateVisible(foundVisibility==='hidden'?false:true);
+        }
     }
 
     /**

@@ -408,10 +408,18 @@ const Chat = () => {
                 <div className='chat-header-fullscreen'>
                     <MessageList availableMessages={updatedMeetingList} typing={typing}/>
                     {
+                        <div style={{padding: '2%', fontSize: 'small', position: 'absolute', bottom: '15%'}}>
+                            <span>If you are connected, you will see the written text: "You joined"</span><br/>
+                            <strong>Please Note:</strong> <span style={{color: 'red', fontWeight: 'bold'}}><i>This is a free deployment. Sometimes it takes a few minutes for the socket server to run first.</i></span>
+                        </div>
+                    }
+                    {
                         !isBlocked &&
                         <div className="ui big icon input chat-input-fullscreen">
                             <textarea
-                                ref={(input) => { updateInputRef(input) }}
+                                ref={(input) => {
+                                    updateInputRef(input)
+                                }}
                                 className='chat-input-text-area-fullscreen'
                                 placeholder={`Your are: ${username}`}
                                 value={inputValue}

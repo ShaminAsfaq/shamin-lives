@@ -84,6 +84,7 @@ const CustomCard = (props) => {
                              aria-label="contained primary button group"
                 >
                     <Button
+                        disabled={true}
                         size="small" color="primary"
                         onClick={showSnackBar}
                     >

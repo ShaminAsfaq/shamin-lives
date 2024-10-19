@@ -301,7 +301,8 @@ class MaterialP2P extends React.Component {
                             }
                         </Grid>
 
-                        <Grid container spacing={2} style={{flexDirection: 'row-reverse', justifyContent: 'space-between'}}
+                        <Grid container spacing={2}
+                              style={{flexDirection: 'row-reverse', justifyContent: 'space-between'}}
                               className='someone-is-calling-grid'>
                             <Grid item>
                                 <List
@@ -352,6 +353,16 @@ class MaterialP2P extends React.Component {
                         </Grid>
                     </div>
                 </Container>
+                <div style={{ padding: '2%', fontSize: 'medium'}}>
+                    Instructions:
+                    <ul>
+                        <li>Open this page in two different browsers tabs.</li>
+                        <li>Under "Available Peers" on the right side of the page, you will then see the name of other available peer.</li>
+                        <li>Click on the name and keep your eyes on the second tab. Wait a few seconds.</li>
+                        <li>Accept or Decline the call from the incoming call options.</li>
+                        <li><strong>Please Note:</strong> <span style={{color: 'red', fontWeight: 'bold'}}><i>This is a free deployment. Sometimes it takes a few minutes for the socket server to run first.</i></span></li>
+                    </ul>
+                </div>
             </React.Fragment>
         );
     }

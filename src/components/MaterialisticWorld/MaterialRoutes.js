@@ -7,6 +7,7 @@ import Conference from '../Simple-Peer/Conference';
 import EducationBoardResultBD from './EducationBoardResultBD/EducationBoardResultBD';
 import Redditor from "../reddit/Redditor";
 import Home from "../Home";
+import Chat from "../chat/Chat";
 
 const WrapClassToFunctionOldHome = () => {
     return (
@@ -32,6 +33,12 @@ const WrapClassToFunctionEducationBoardReusltBD = () => {
     );
 };
 
+const WrapClassToFunctionChat = () => {
+    return (
+        <Chat/>
+    )
+};
+
 const MaterialRoutes = [
     // {
     //     //Failed Attempt. Apparently, Govt of Bangladesh is keeping some piece of junk php guys who only knows SOAP
@@ -42,12 +49,19 @@ const MaterialRoutes = [
     //     icon: AccountCircle,
     //     component: WrapClassToFunctionEducationBoardReusltBD
     // },
+    // {
+    //     path: '/discover',
+    //     sidebarName: 'F.R.I.E.N.D.S',
+    //     navbarName: 'F.R.I.E.N.D.S',
+    //     icon: AccountCircle,
+    //     component: FriendsRandom
+    // },
     {
-        path: '/discover',
-        sidebarName: 'F.R.I.E.N.D.S',
-        navbarName: 'F.R.I.E.N.D.S',
+        path: '/public-chat',
+        sidebarName: 'Public Chat',
+        navbarName: 'Public Chat',
         icon: AccountCircle,
-        component: FriendsRandom
+        component: WrapClassToFunctionChat
     },
     {
         path: '/material-p2p',
@@ -63,13 +77,13 @@ const MaterialRoutes = [
     //     icon: AccountCircle,
     //     component: WrapClassToFunctionConference
     // },
-    {
-        path: '/material-reddit',
-        sidebarName: 'Reddit',
-        navbarName: 'Reddit',
-        icon: AccountCircle,
-        component: WrapClassToFunctionOldHome
-    },
+    // {
+    //     path: '/material-reddit',
+    //     sidebarName: 'Reddit',
+    //     navbarName: 'Reddit',
+    //     icon: AccountCircle,
+    //     component: WrapClassToFunctionOldHome
+    // },
 ];
 
 export default MaterialRoutes;

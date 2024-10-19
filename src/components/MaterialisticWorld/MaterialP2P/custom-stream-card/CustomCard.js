@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 
 const CustomCard = (props) => {
     const classes = useStyles();
-    const {showSnackBar, placeholder, stream, muted} = props;
+    const {showSnackBar, placeholder, stream, muted, username} = props;
 
     // console.log(props.stream)
 
@@ -48,7 +48,7 @@ const CustomCard = (props) => {
         if (stream) {
             streamRef.current.srcObject = stream;
         }
-        console.log(stream)
+        // console.log(stream)
 
         return (() => {
             if (stream) {
@@ -131,6 +131,7 @@ const CustomCard = (props) => {
                     </Button>
                 </ButtonGroup>
             </CardActions>
+            <CardActions className='card-actions'>{username}</CardActions>
         </Card>
     );
 };

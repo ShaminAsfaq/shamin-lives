@@ -333,26 +333,86 @@ const Chat = () => {
     }, 100)
 
 
+    //  Floating Chat Box - START
+    // return(
+    //     <div className='chat-one-above-all'>
+    //         {
+    //             visible &&
+    //             <div className='chat-window'>
+    //                 <div className='chat-box-head-wannabe' onClick={onCloseChatBox}>
+    //                     <div className='chat-box-head'>
+    //                         #general
+    //                         <div onClick={onCloseChatBox} className='open-close-tag'>
+    //                             close
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //                 <MessageList availableMessages={updatedMeetingList} typing={typing}/>
+    //                 {
+    //                     !isBlocked &&
+    //                     <div className="ui big icon input chat-input">
+    //                         <textarea
+    //                             ref={(input) => { updateInputRef(input) }}
+    //                             className='chat-input-text-area'
+    //                             placeholder={`Your are: ${username}`}
+    //                             value={inputValue}
+    //                             onChange={(e) => {
+    //                                 updateInputValue(e.target.value)
+    //                             }}
+    //                         >
+    //                         </textarea>
+    //                         {
+    //                             /**
+    //                              * Send button: initially used when ENTER button didn't work as a sender.
+    //                              * "We're gonna be okay. You can rest now." [Endgame Easter Egg. Pepper Potts]
+    //                              */
+    //                             // <button
+    //                             //     className="send-button"
+    //                             //     type="submit"
+    //                             //     onClick={onSendMessage}
+    //                             // >
+    //                             // Send
+    //                             // </button>
+    //                         }
+    //                     </div>
+    //                 }
+    //                 {
+    //                     isBlocked &&
+    //                     <div style={{textAlign:'center', color: 'red', paddingTop: '3.5%'}}>
+    //                         Unfortunately, you have been blocked.
+    //                     </div>
+    //                 }
+    //             </div>
+    //         }
+    //         {
+    //             !visible &&
+    //             <div className='chat-window-closed'>
+    //                 <div className='chat-box-head-wannabe' onClick={onCloseChatBox}>
+    //                     <div className='chat-box-head'>
+    //                         #general
+    //                         <div onClick={onCloseChatBox} className='open-close-tag'>
+    //                             open
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         }
+    //     </div>
+    // );
+    //  Floating Chat Box - END
+
     return(
-        <div className='chat-one-above-all'>
+        <div className='main-chat-window'>
             {
                 visible &&
-                <div className='chat-window'>
-                    <div className='chat-box-head-wannabe' onClick={onCloseChatBox}>
-                        <div className='chat-box-head'>
-                            #general
-                            <div onClick={onCloseChatBox} className='open-close-tag'>
-                                close
-                            </div>
-                        </div>
-                    </div>
+                <div className='chat-header-fullscreen'>
                     <MessageList availableMessages={updatedMeetingList} typing={typing}/>
                     {
                         !isBlocked &&
-                        <div className="ui big icon input chat-input">
-                            <textarea 
+                        <div className="ui big icon input chat-input-fullscreen">
+                            <textarea
                                 ref={(input) => { updateInputRef(input) }}
-                                className='chat-input-text-area' 
+                                className='chat-input-text-area-fullscreen'
                                 placeholder={`Your are: ${username}`}
                                 value={inputValue}
                                 onChange={(e) => {
@@ -365,8 +425,8 @@ const Chat = () => {
                                  * Send button: initially used when ENTER button didn't work as a sender.
                                  * "We're gonna be okay. You can rest now." [Endgame Easter Egg. Pepper Potts]
                                  */
-                                // <button 
-                                //     className="send-button" 
+                                // <button
+                                //     className="send-button"
                                 //     type="submit"
                                 //     onClick={onSendMessage}
                                 // >

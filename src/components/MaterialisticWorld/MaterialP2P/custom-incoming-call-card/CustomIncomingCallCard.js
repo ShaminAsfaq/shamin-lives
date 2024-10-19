@@ -38,7 +38,7 @@ const useStyles = makeStyles({
 });
 const CustomIncomingCallCard = (props) => {
     const classes = useStyles();
-    const { acceptCall, declineCall } = props;
+    const { acceptCall, declineCall, callFrom } = props;
 
     return (
         <Card className={classes.root} className='main-card-answer'>
@@ -69,6 +69,7 @@ const CustomIncomingCallCard = (props) => {
                     </Button>
 
                 </ButtonGroup>
+                <div className='incoming-call-overlay'>{callFrom}</div>
             </CardActions>
         </Card>
     );

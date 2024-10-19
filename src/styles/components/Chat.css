@@ -1,3 +1,33 @@
+.makeStyles-content-7 {
+    padding: unset !important;
+}
+
+.chat-header-fullscreen {
+    display: flex;
+    flex-direction: column;
+
+    /* float: right; */
+    position:fixed;
+    height: 100%;
+    width: -webkit-fill-available;
+    /*right: 20px;*/
+    /* left: 20px; */
+    /*bottom: 5px;*/
+    /* background: rgb(245, 245, 245); */
+    background: #f5fffa;
+    /*border-radius: 25px 25px 0px 0px;*/
+    z-index:100;
+    /* border-style: solid; */
+
+    /*box-shadow:*/
+    /*        0 2.8px 2.2px rgba(0, 0, 0, 0.034),*/
+    /*        0 6.7px 5.3px rgba(0, 0, 0, 0.048),*/
+    /*        0 12.5px 10px rgba(0, 0, 0, 0.06),*/
+    /*        0 22.3px 17.9px rgba(0, 0, 0, 0.072),*/
+    /*        0 41.8px 33.4px rgba(0, 0, 0, 0.086),*/
+    /*        0 100px 80px rgba(0, 0, 0, 0.12)*/
+}
+
 .chat-one-above-all {
     /* display: flex;
     flex-wrap: wrap; */
@@ -110,6 +140,37 @@
     right: 0px;
     
     /* pointer-events: none; */
+}
+
+.chat-input-fullscreen {
+    min-height: 10%;
+    width: 100%;
+
+    /* margin-top: 80% !important; */
+    height: 5%;
+    /*position: absolute !important;*/
+    bottom: 0px !important;
+    left: 0px;
+    right: 0px;
+
+    /* pointer-events: none; */
+}
+
+.chat-input-text-area-fullscreen {
+    border-radius: 0 !important;
+    border: none !important;
+    background: #f5fffa !important;
+
+    padding: 13px;
+    width: 100%;
+    resize: none;
+    outline: none;
+
+    border-top: 1px solid #c9bdbd !important;
+
+    /* -webkit-box-shadow: inset 0px 0px 30px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: inset 0px 0px 30px 0px rgba(0,0,0,0.3);
+    box-shadow: inset 0px 0px 25px 0px rgba(0,0,0,0.3); */
 }
 
 .chat-input-text-area {

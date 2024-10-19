@@ -76,6 +76,8 @@ const App = () => {
                     {/*<Route path='/discover' component={FriendsRandom}/>*/}
 
                     <Route path='/' component={MaterialHome} exact={true}/>
+                    <Route path='/public-chat' component={Chat} exact={true}/>
+                    <Route path='/material-p2p' component={MaterialP2P} exact={true}/>
                     <Route component={NotFound}/>
                 </Switch>
                 {
@@ -83,7 +85,7 @@ const App = () => {
                 }
             </div>
             {
-                <Chat/>
+                // <Chat/>
             }
             {
                 // <Conference/>

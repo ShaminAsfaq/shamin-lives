@@ -27,6 +27,10 @@
     max-width: 200px;
 }
 
+.incoming-call-overlay {
+    padding-top: 5px !important;
+}
+
 @media screen and (max-width: 1050px) {
     .main-card-answer {
         height: 160px !important;

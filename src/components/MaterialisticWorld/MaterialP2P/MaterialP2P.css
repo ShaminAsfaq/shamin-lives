@@ -8,6 +8,7 @@
 }
 
 .main-container {
+    padding-top: 10px;
     height: 100%;
     display: flex !important;
     flex-direction: row;
@@ -34,6 +35,7 @@
         /*flex-direction: column;*/
         /*max-width: unset !important;*/
         align-items: center;
+        padding-top: 10px;
     }
 
     .video-grid {

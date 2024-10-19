@@ -34,6 +34,7 @@ const useStyles = theme => ({
 class MaterialP2P extends React.Component {
     // SOCKET_URL = 'http://118.179.95.206:5000';
     // SOCKET_URL = 'https://shamin-lives-server.herokuapp.com';
+    // SOCKET_URL = 'http://localhost:5000';
     SOCKET_URL = 'https://shamin-lives-server.onrender.com';    //  Heroku is discontinued. Now deployed on RENDER
     socket = io.connect(this.SOCKET_URL, {'transports': ['websocket', 'polling']});
 
@@ -69,6 +70,9 @@ class MaterialP2P extends React.Component {
                         muted: true
                     }
                 ]
+            }, () => {
+                console.log('State Updated')
+                this.socket.emit('new-video-streamer');
             });
         });
 
@@ -82,7 +86,14 @@ class MaterialP2P extends React.Component {
             });
         });
 
-        this.socket.on('allUsers', users => {
+        this.socket.on('yourUsername', username => {
+            // console.log(username);
+            this.setState({
+                username
+            });
+        });
+
+        this.socket.on('allVideoUsers', users => {
             console.log(users);
             this.setState({
                 users
@@ -234,7 +245,7 @@ class MaterialP2P extends React.Component {
     streamList = [];
 
     render() {
-        console.log(this.state);
+        // console.log(this.state);
         const {classes} = this.props;
         return (
             <React.Fragment>
@@ -259,6 +270,7 @@ class MaterialP2P extends React.Component {
                                     return (
                                         <Grid item key={idx}>
                                             <CustomCard
+                                                username={this.state.username}
                                                 stream={each.stream}
                                                 placeholder={each.placeholder}
                                                 showSnackBar={this.showSnackBar}
@@ -270,7 +282,7 @@ class MaterialP2P extends React.Component {
                             }
                         </Grid>
 
-                        <Grid container spacing={2} style={{flexDirection: 'row-reverse'}}
+                        <Grid container spacing={2} style={{flexDirection: 'row-reverse', justifyContent: 'space-between'}}
                               className='someone-is-calling-grid'>
                             <Grid item>
                                 <List
@@ -285,8 +297,8 @@ class MaterialP2P extends React.Component {
                                     {
                                         this.state.users &&
                                         Object.entries(this.state.users).map((item, idx) => {
-                                            console.log(this.state.caller)
-                                            console.log(item[0])
+                                            // console.log(this.state.caller)
+                                            // console.log(item[0])
                                             if (item[0] !== this.state.yourID) {
                                                 return (
                                                     <ListItem disabled={this.state.selectedItem === idx} key={idx}
@@ -299,7 +311,7 @@ class MaterialP2P extends React.Component {
                                                         <ListItemIcon>
                                                             <VideocamIcon/>
                                                         </ListItemIcon>
-                                                        <ListItemText id="switch-list-label-wifi" primary={item[0]}/>
+                                                        <ListItemText id="switch-list-label-wifi" primary={item[1]}/>
                                                     </ListItem>
                                                 );
                                             }
@@ -313,7 +325,9 @@ class MaterialP2P extends React.Component {
                                     this.state.receivingCall &&
                                     !this.state.callAccepted &&
                                     <CustomIncomingCallCard acceptCall={this.acceptCall}
-                                                            declineCall={this.declineCall}/>
+                                                            declineCall={this.declineCall}
+                                                            callFrom={this.state.users[this.state.caller]}
+                                    />
                                 }
                             </Grid>
                         </Grid>

@@ -71,7 +71,7 @@ class MaterialP2P extends React.Component {
                     }
                 ]
             }, () => {
-                console.log('State Updated')
+                // console.log('State Updated')
                 this.socket.emit('new-video-streamer');
             });
         });
@@ -94,7 +94,7 @@ class MaterialP2P extends React.Component {
         });
 
         this.socket.on('allVideoUsers', users => {
-            console.log(users);
+            // console.log(users);
             this.setState({
                 users
             });
@@ -159,7 +159,8 @@ class MaterialP2P extends React.Component {
             let newEntry = {
                 stream,
                 placeholder: '/media/Zizou.mp4',
-                muted: false
+                muted: false,
+                otherPersonId: this.state.caller
             };
             oldList.push(newEntry);
 
@@ -242,6 +243,24 @@ class MaterialP2P extends React.Component {
         })
     };
 
+    getUserNameForCurrentStream = (each) => {
+        // console.log(each);
+        if (each.otherPersonId) {
+            return this.state.users[each.otherPersonId];
+        }
+
+        if (each.stream.id === this.state.myStream.srcObject.id) {
+            return this.state.username;
+        }
+
+        const selectedItemFromUserList = this.state.selectedItem;
+        if (selectedItemFromUserList !== -1) {
+            return Object.values(this.state.users)[selectedItemFromUserList];
+        } else {
+            return 'UnKnown User';
+        }
+    }
+
     streamList = [];
 
     render() {
@@ -270,7 +289,7 @@ class MaterialP2P extends React.Component {
                                     return (
                                         <Grid item key={idx}>
                                             <CustomCard
-                                                username={this.state.username}
+                                                username={this.getUserNameForCurrentStream(each)}
                                                 stream={each.stream}
                                                 placeholder={each.placeholder}
                                                 showSnackBar={this.showSnackBar}

@@ -131,7 +131,12 @@ const CustomCard = (props) => {
                     </Button>
                 </ButtonGroup>
             </CardActions>
-            <CardActions className='card-actions'>{username}</CardActions>
+            {
+                muted ?
+                    <CardActions className='card-actions'>(<span style={{ color: 'red' }}>me</span>) {username}</CardActions>
+                    :
+                    <CardActions className='card-actions'>{username}</CardActions>
+            }
         </Card>
     );
 };
